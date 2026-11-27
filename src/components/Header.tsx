@@ -27,8 +27,8 @@ export default function Header() {
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
-      <div className="bg-navy text-xs text-white/90">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-x-6 gap-y-1 px-4 py-2">
+      <div className="bg-navy text-[11px] text-white/90 sm:text-xs">
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-6 gap-y-1 px-4 py-1.5 md:justify-between md:py-2">
           <span className="font-semibold text-gold">Sept &amp; Jan UK Intakes Open — Free Profile Check</span>
           <span className="hidden items-center gap-4 md:flex">
             <span className="inline-flex items-center gap-1"><MapPin className="h-3.5 w-3.5" /> KVR Enclave, beside AAA Theatre, Ameerpet</span>
@@ -59,30 +59,31 @@ export default function Header() {
           <a
             href={`tel:${siteConfig.phoneRaw}`}
             aria-label={`Call ${siteConfig.phoneDisplay}`}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-navy px-3 py-2 text-sm font-semibold text-navy transition hover:bg-navy hover:text-white"
+            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-1.5 rounded-lg border border-navy px-3 py-2 text-sm font-semibold text-navy transition hover:bg-navy hover:text-white"
           >
-            <Phone className="h-4 w-4" />
+            <Phone aria-hidden="true" className="h-4 w-4" />
             <span className="hidden sm:inline">Call Now</span>
           </a>
           <button
             type="button"
             onClick={() => openModal({ source: 'header' })}
-            className="hidden rounded-lg bg-crimson px-4 py-2.5 text-sm font-semibold text-white hover:bg-crimson-dark sm:block"
+            className="hidden min-h-[44px] rounded-lg bg-crimson px-4 py-2.5 text-sm font-semibold text-white hover:bg-crimson-dark sm:block"
           >
             Book Free Counselling
           </button>
           <button
-            className="rounded-md p-2 text-navy lg:hidden"
+            type="button"
+            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-navy lg:hidden"
             onClick={() => setOpen((o) => !o)}
             aria-label="Toggle menu"
             aria-expanded={open}
           >
-            {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            {open ? <X aria-hidden="true" className="h-6 w-6" /> : <Menu aria-hidden="true" className="h-6 w-6" />}
           </button>
         </div>
       </nav>
       {open && (
-        <div className="border-t bg-white lg:hidden">
+        <div className="max-h-[calc(100dvh-5rem)] overflow-y-auto overscroll-contain border-t bg-white lg:hidden">
           <ul className="mx-auto max-w-7xl px-4 py-2">
             {links.map((l) => {
               const active = l.href === '/' ? norm(pathname) === '/' : norm(pathname).startsWith(norm(l.href));

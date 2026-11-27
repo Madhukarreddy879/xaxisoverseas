@@ -42,26 +42,28 @@ export default function Home() {
   return (
     <>
       <section className="grid-pattern bg-navy text-white">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 lg:grid-cols-5 lg:py-24">
+        <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 sm:py-16 lg:grid-cols-5 lg:gap-10 lg:py-24">
           <div className="lg:col-span-3">
             <p className="mb-3 inline-block rounded-full bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide text-gold">
               UK SPECIALISTS • AMEERPET, HYDERABAD
             </p>
-            <h1 className="font-serif text-4xl font-bold leading-tight md:text-5xl">
+            <h1 className="font-serif text-[clamp(2rem,1.4rem+3vw,3.25rem)] font-bold leading-tight">
               Your Pathway to a <span className="text-gold">UK Degree</span> Starts Here
             </h1>
-            <p className="mt-5 max-w-xl text-lg text-white/80">
+            <p className="mt-4 max-w-xl text-base text-white/80 sm:mt-5 sm:text-lg">
               X-Axis Overseas guides Hyderabad students through UK university admissions, scholarships, MOI / without-IELTS options and student visas — end to end.
             </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <CtaButton source="hero">Book Free Counselling</CtaButton>
+            <div className="mt-6 flex flex-col gap-3 sm:mt-7 sm:flex-row sm:flex-wrap">
+              <CtaButton source="hero" className="min-h-[48px] w-full rounded-lg bg-crimson px-6 py-3 font-semibold text-white hover:bg-crimson-dark sm:w-auto">
+                Book Free Counselling
+              </CtaButton>
               <a
                 href={`tel:${siteConfig.phoneRaw}`}
-                className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-semibold text-navy transition hover:bg-ivory"
+                className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 font-semibold text-navy transition hover:bg-ivory sm:w-auto"
               >
-                <Phone className="h-4 w-4 text-crimson" /> Call {siteConfig.phoneDisplay}
+                <Phone aria-hidden="true" className="h-4 w-4 text-crimson" /> Call {siteConfig.phoneDisplay}
               </a>
-              <Link href="/eligibility/" className="rounded-lg border border-white/40 px-6 py-3 font-semibold hover:bg-white/10">
+              <Link href="/eligibility/" className="inline-flex min-h-[48px] w-full items-center justify-center rounded-lg border border-white/40 px-6 py-3 font-semibold hover:bg-white/10 sm:w-auto">
                 Check My Eligibility
               </Link>
             </div>
@@ -203,9 +205,11 @@ export default function Home() {
           <p className="mt-4 flex gap-2 text-slate-700"><MapPin className="mt-1 h-5 w-5 shrink-0 text-crimson" /> {siteConfig.address.full}</p>
           <p className="mt-2 text-sm text-slate-500">{siteConfig.address.landmarkNote}</p>
           <p className="mt-2 text-sm text-slate-500">{siteConfig.officeHours}</p>
-          <div className="mt-6 flex gap-3">
-            <CtaButton source="office">Book a Visit</CtaButton>
-            <a href={siteConfig.googleMapsDirectionsUrl} target="_blank" rel="noopener noreferrer" className="rounded-lg border border-navy px-6 py-3 font-semibold text-navy hover:bg-navy hover:text-white">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <CtaButton source="office" className="min-h-[48px] w-full rounded-lg bg-crimson px-6 py-3 font-semibold text-white hover:bg-crimson-dark sm:w-auto">
+              Book a Visit
+            </CtaButton>
+            <a href={siteConfig.googleMapsDirectionsUrl} target="_blank" rel="noopener noreferrer" className="inline-flex min-h-[48px] w-full items-center justify-center rounded-lg border border-navy px-6 py-3 font-semibold text-navy hover:bg-navy hover:text-white sm:w-auto">
               Get Directions
             </a>
           </div>

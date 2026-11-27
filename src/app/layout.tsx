@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Plus_Jakarta_Sans, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
@@ -9,6 +9,13 @@ import { CounsellingProvider } from '@/components/CounsellingContext';
 
 const sans = Plus_Jakarta_Sans({ subsets: ['latin'], variable: '--font-sans', display: 'swap' });
 const serif = Playfair_Display({ subsets: ['latin'], variable: '--font-serif', display: 'swap' });
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#0A192F',
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://xaxisoverseas.com'),

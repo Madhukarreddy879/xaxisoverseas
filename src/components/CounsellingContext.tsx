@@ -86,7 +86,7 @@ export function CounsellingProvider({ children }: { children: React.ReactNode })
         ref={dialogRef}
         aria-labelledby="counselling-modal-title"
         {...({ closedby: 'any' } as Record<string, string>)}
-        className="m-auto max-h-[92dvh] w-[calc(100%-2rem)] max-w-md rounded-2xl bg-white p-0 text-slate-900 shadow-2xl"
+        className="m-auto max-h-[90dvh] w-[calc(100%-1.5rem)] max-w-md overflow-y-auto rounded-2xl bg-white p-0 text-slate-900 shadow-2xl"
       >
         <div className="relative p-6">
           <button
