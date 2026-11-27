@@ -17,91 +17,96 @@ export function CounsellingProvider({ children }: { children: React.ReactNode })
   const [open, setOpen] = useState(false);
   const [prefill, setPrefill] = useState<Prefill | undefined>();
   const [key, setKey] = useState(0);
-  const dialogRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   const openModal = useCallback((p?: Prefill) => {
     setPrefill(p);
     setKey((k) => k + 1);
     setOpen(true);
   }, []);
-  const closeModal = useCallback(() => setOpen(false), []);
+
+  const closeModal = useCallback(() => {
+    dialogRef.current?.close();
+    setOpen(false);
+  }, []);
 
   useEffect(() => {
-    if (!open) return;
-    const previouslyFocused = document.activeElement as HTMLElement | null;
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    dialogRef.current?.focus();
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setOpen(false);
-        return;
-      }
-      if (e.key !== 'Tab' || !dialogRef.current) return;
-      const focusable = Array.from(
-        dialogRef.current.querySelectorAll<HTMLElement>(
-          'button:not([disabled]), [href], input:not([disabled]):not([type="hidden"]):not([tabindex="-1"]), select:not([disabled]), textarea:not([disabled])',
-        ),
-      );
-      if (focusable.length === 0) {
-        e.preventDefault();
-        return;
-      }
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      const active = document.activeElement;
-      if (e.shiftKey && (active === first || active === dialogRef.current)) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && active === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
-    window.addEventListener('keydown', onKey);
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      document.body.style.overflow = prevOverflow;
-      previouslyFocused?.focus?.();
-    };
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    if (open && !dialog.open) {
+      dialog.showModal();
+    } else if (!open && dialog.open) {
+      dialog.close();
+    }
   }, [open]);
+
+  // Progressive-enhancement fallback for browsers without native closedby="any" (e.g. Safari)
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    const handleClose = () => {
+      dialog.returnValue = '';
+      setOpen(false);
+    };
+    dialog.addEventListener('close', handleClose);
+
+    if ('closedBy' in HTMLDialogElement.prototype) {
+      return () => dialog.removeEventListener('close', handleClose);
+    }
+
+    const isOutside = (e: PointerEvent) => {
+      const r = dialog.getBoundingClientRect();
+      return e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+    };
+    let pressedOutside = false;
+    const onDown = (e: PointerEvent) => {
+      pressedOutside = isOutside(e);
+    };
+    const onUp = (e: PointerEvent) => {
+      if (pressedOutside && isOutside(e)) dialog.close();
+      pressedOutside = false;
+    };
+
+    dialog.addEventListener('pointerdown', onDown);
+    dialog.addEventListener('pointerup', onUp);
+    return () => {
+      dialog.removeEventListener('close', handleClose);
+      dialog.removeEventListener('pointerdown', onDown);
+      dialog.removeEventListener('pointerup', onUp);
+    };
+  }, []);
 
   return (
     <CounsellingContext.Provider value={{ openModal, closeModal }}>
       {children}
-      {open && (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-navy-dark/70 p-4"
-          onClick={closeModal}
-        >
-          <div
-            ref={dialogRef}
-            tabIndex={-1}
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="counselling-modal-title"
-            className="relative max-h-[92vh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-6 shadow-2xl outline-none"
-            onClick={(e) => e.stopPropagation()}
+      {/* Native <dialog> opened via showModal() handles role, aria-modal, focus containment, Esc, and focus return */}
+      <dialog
+        ref={dialogRef}
+        aria-labelledby="counselling-modal-title"
+        {...({ closedby: 'any' } as Record<string, string>)}
+        className="m-auto max-h-[92dvh] w-[calc(100%-2rem)] max-w-md rounded-2xl bg-white p-0 text-slate-900 shadow-2xl"
+      >
+        <div className="relative p-6">
+          <button
+            type="button"
+            onClick={closeModal}
+            aria-label="Close"
+            className="absolute right-3 top-3 rounded-full p-2 text-slate-500 hover:bg-slate-100"
           >
-            <button
-              onClick={closeModal}
-              aria-label="Close"
-              className="absolute right-3 top-3 rounded-full p-1.5 text-slate-500 hover:bg-slate-100"
-            >
-              <X className="h-5 w-5" />
-            </button>
-            <h2 id="counselling-modal-title" className="pr-8 text-xl font-bold text-navy">
-              Book Free UK Counselling
-            </h2>
-            {prefill?.university && (
-              <p className="mt-1 text-sm text-slate-600">Interested in: {prefill.university}</p>
-            )}
-            <div className="mt-4">
-              <LeadCaptureForm key={key} variant="full" prefill={prefill} />
-            </div>
+            <X className="h-5 w-5" />
+          </button>
+          <h1 id="counselling-modal-title" className="pr-10 text-xl font-bold text-navy">
+            Book Free UK Counselling
+          </h1>
+          {prefill?.university && (
+            <p className="mt-1 text-sm text-slate-600">Interested in: {prefill.university}</p>
+          )}
+          <div className="mt-4">
+            {open && <LeadCaptureForm key={key} variant="full" prefill={prefill} autoFocusFirst />}
           </div>
         </div>
-      )}
+      </dialog>
     </CounsellingContext.Provider>
   );
 }

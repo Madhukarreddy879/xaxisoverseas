@@ -46,7 +46,8 @@ export default function Header() {
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className={`rounded-md px-3 py-2 text-sm font-semibold transition ${active ? 'text-crimson' : 'text-navy hover:text-crimson'}`}
+                  aria-current={active ? 'page' : undefined}
+                  className={`rounded-md px-3 py-2 text-sm font-semibold transition ${active ? 'text-crimson underline decoration-2 underline-offset-4' : 'text-navy hover:text-crimson'}`}
                 >
                   {l.label}
                 </Link>
@@ -83,13 +84,21 @@ export default function Header() {
       {open && (
         <div className="border-t bg-white lg:hidden">
           <ul className="mx-auto max-w-7xl px-4 py-2">
-            {links.map((l) => (
-              <li key={l.href}>
-                <Link href={l.href} onClick={() => setOpen(false)} className="block py-3 font-semibold text-navy">
-                  {l.label}
-                </Link>
-              </li>
-            ))}
+            {links.map((l) => {
+              const active = l.href === '/' ? norm(pathname) === '/' : norm(pathname).startsWith(norm(l.href));
+              return (
+                <li key={l.href}>
+                  <Link
+                    href={l.href}
+                    aria-current={active ? 'page' : undefined}
+                    onClick={() => setOpen(false)}
+                    className={`block py-3 font-semibold ${active ? 'text-crimson underline decoration-2 underline-offset-4' : 'text-navy'}`}
+                  >
+                    {l.label}
+                  </Link>
+                </li>
+              );
+            })}
             <li className="space-y-2 border-t py-3">
               <button
                 onClick={() => {
