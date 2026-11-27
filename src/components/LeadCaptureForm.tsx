@@ -3,6 +3,7 @@
 import { useId, useRef, useState } from 'react';
 import { CheckCircle2, MessageCircle, Phone } from 'lucide-react';
 import { buildWhatsAppUrl, siteConfig } from '@/config/site';
+import { trackEvent } from './GoogleAnalytics';
 
 export interface Prefill {
   university?: string;
@@ -49,6 +50,11 @@ export default function LeadCaptureForm({
     setError('');
     setDeliveryFallback(false);
     data.source = prefill?.source || 'website';
+    trackEvent('generate_lead', {
+      form_source: data.source,
+      intake: data.intake || 'unspecified',
+      page_path: window.location.pathname,
+    });
     fetch('/api/lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

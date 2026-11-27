@@ -4,6 +4,7 @@ import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FloatingActions from '@/components/FloatingActions';
+import GoogleAnalytics from '@/components/GoogleAnalytics';
 import JsonLd from '@/components/JsonLd';
 import { CounsellingProvider } from '@/components/CounsellingContext';
 
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${sans.variable} ${serif.variable}`}>
       <body className="font-sans antialiased">
+        <GoogleAnalytics />
         <JsonLd />
         <CounsellingProvider>
           <Header />

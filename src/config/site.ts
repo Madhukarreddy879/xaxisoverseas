@@ -7,6 +7,7 @@ export const siteConfig = {
   legalName: 'X-Axis Overseas Consultancy',
   domain: 'xaxisoverseas.com',
   siteUrl: 'https://xaxisoverseas.com',
+  gaMeasurementId: 'G-J6ERLYDQX7',
   email: 'info@xaxisoverseas.com',
   // Contact phone & WhatsApp
   phoneDisplay: '+91 93462 14771',
