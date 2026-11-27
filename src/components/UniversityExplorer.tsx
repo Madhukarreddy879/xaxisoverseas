@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Search } from 'lucide-react';
 import { universities } from '@/data/ukData';
 import { useCounselling } from './CounsellingContext';
@@ -8,14 +9,15 @@ import { useCounselling } from './CounsellingContext';
 const filters = ['All', 'Russell Group', 'London', 'MOI Friendly', 'May Intake'] as const;
 
 export default function UniversityExplorer() {
-  const [q, setQ] = useState('');
+  const searchParams = useSearchParams();
+  const urlQuery = searchParams.get('q') ?? '';
+  const [q, setQ] = useState(urlQuery);
   const [f, setF] = useState<(typeof filters)[number]>('All');
   const { openModal } = useCounselling();
 
   useEffect(() => {
-    const param = new URLSearchParams(window.location.search).get('q');
-    if (param) setQ(param);
-  }, []);
+    setQ(urlQuery);
+  }, [urlQuery]);
 
   const list = useMemo(
     () =>
@@ -65,7 +67,21 @@ export default function UniversityExplorer() {
           ))}
         </div>
       </search>
-      <p className="mt-4 text-sm text-slate-500">{list.length} universities shown</p>
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-2 text-sm text-slate-500">
+        <p>{list.length} universities shown</p>
+        {(q || f !== 'All') && (
+          <button
+            type="button"
+            onClick={() => {
+              setQ('');
+              setF('All');
+            }}
+            className="text-xs font-semibold text-crimson hover:underline"
+          >
+            Clear filters
+          </button>
+        )}
+      </div>
       <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {list.map((u) => (
           <article key={u.name} className="flex flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-slate-300 hover:shadow-md">
