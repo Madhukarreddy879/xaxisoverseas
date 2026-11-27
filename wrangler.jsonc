@@ -1,0 +1,15 @@
+{
+  "name": "xaxisoverseas",
+  "main": "./worker.js",
+  "compatibility_date": "2026-11-23",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "./out",
+    "binding": "ASSETS",
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash",
+    "run_worker_first": ["/api/*"]
+  }
+}

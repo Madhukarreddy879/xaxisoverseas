@@ -23,6 +23,12 @@ npm run dev
    `functions/api/lead.js` forwards every enquiry. Without it, leads still reach you via the
    WhatsApp / call buttons shown after form submission.
 
+### Cloudflare Workers (Static Assets) deploy
+If Cloudflare created a **Worker** project (deploy command `npx wrangler deploy`), it works out of
+the box: `wrangler.jsonc` serves `./out` and `worker.js` handles `POST /api/lead`.
+Use build command `npm run build` and deploy command `npx wrangler deploy`.
+Set `LEAD_WEBHOOK_URL` as a Worker variable/secret.
+
 ## Before launch
 - Replace sample testimonials in `src/data/ukData.ts` with real ones.
 - Verify university fees, scholarships and UKVI figures against official sources.
