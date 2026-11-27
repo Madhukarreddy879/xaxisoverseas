@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://xaxisoverseas.com'),
   title: {
     default: 'X-Axis Overseas — Study in UK Consultants in Hyderabad',
-    template: '%s | X-Axis Overseas — Study in UK Consultants Hyderabad',
+    template: '%s | X-Axis Overseas',
   },
   description:
     'X-Axis Overseas is a Hyderabad (Ameerpet) consultancy specialising in UK university admissions, scholarships, MOI/without-IELTS options and UK student visas. Free counselling.',

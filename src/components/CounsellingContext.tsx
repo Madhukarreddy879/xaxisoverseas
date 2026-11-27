@@ -84,29 +84,31 @@ export function CounsellingProvider({ children }: { children: React.ReactNode })
       {/* Native <dialog> opened via showModal() handles role, aria-modal, focus containment, Esc, and focus return */}
       <dialog
         ref={dialogRef}
-        aria-labelledby="counselling-modal-title"
+        aria-labelledby={open ? 'counselling-modal-title' : undefined}
         {...({ closedby: 'any' } as Record<string, string>)}
         className="m-auto max-h-[90dvh] w-[calc(100%-1.5rem)] max-w-md overflow-y-auto rounded-2xl bg-white p-0 text-slate-900 shadow-2xl"
       >
-        <div className="relative p-6">
-          <button
-            type="button"
-            onClick={closeModal}
-            aria-label="Close"
-            className="absolute right-3 top-3 rounded-full p-2 text-slate-500 hover:bg-slate-100"
-          >
-            <X className="h-5 w-5" />
-          </button>
-          <h1 id="counselling-modal-title" className="pr-10 text-xl font-bold text-navy">
-            Book Free UK Counselling
-          </h1>
-          {prefill?.university && (
-            <p className="mt-1 text-sm text-slate-600">Interested in: {prefill.university}</p>
-          )}
-          <div className="mt-4">
-            {open && <LeadCaptureForm key={key} variant="full" prefill={prefill} autoFocusFirst />}
+        {open && (
+          <div className="relative p-6">
+            <button
+              type="button"
+              onClick={closeModal}
+              aria-label="Close"
+              className="absolute right-3 top-3 rounded-full p-2 text-slate-500 hover:bg-slate-100"
+            >
+              <X className="h-5 w-5" />
+            </button>
+            <h1 id="counselling-modal-title" className="pr-10 text-xl font-bold text-navy">
+              Book Free UK Counselling
+            </h1>
+            {prefill?.university && (
+              <p className="mt-1 text-sm text-slate-600">Interested in: {prefill.university}</p>
+            )}
+            <div className="mt-4">
+              <LeadCaptureForm key={key} variant="full" prefill={prefill} autoFocusFirst />
+            </div>
           </div>
-        </div>
+        )}
       </dialog>
     </CounsellingContext.Provider>
   );
