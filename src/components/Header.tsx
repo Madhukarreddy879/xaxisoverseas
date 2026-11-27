@@ -55,7 +55,16 @@ export default function Header() {
           })}
         </ul>
         <div className="flex items-center gap-2">
+          <a
+            href={`tel:${siteConfig.phoneRaw}`}
+            aria-label={`Call ${siteConfig.phoneDisplay}`}
+            className="inline-flex items-center gap-1.5 rounded-lg border border-navy px-3 py-2 text-sm font-semibold text-navy transition hover:bg-navy hover:text-white"
+          >
+            <Phone className="h-4 w-4" />
+            <span className="hidden sm:inline">Call Now</span>
+          </a>
           <button
+            type="button"
             onClick={() => openModal({ source: 'header' })}
             className="hidden rounded-lg bg-crimson px-4 py-2.5 text-sm font-semibold text-white hover:bg-crimson-dark sm:block"
           >

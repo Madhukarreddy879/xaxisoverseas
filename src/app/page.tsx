@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Award, Banknote, BookOpenCheck, Briefcase, GraduationCap, MapPin, ShieldCheck, Star } from 'lucide-react';
+import { Award, Banknote, BookOpenCheck, Briefcase, GraduationCap, MapPin, Phone, ShieldCheck, Star } from 'lucide-react';
 import LeadCaptureForm from '@/components/LeadCaptureForm';
 import UkCostCalculator from '@/components/UkCostCalculator';
 import FaqAccordion from '@/components/FaqAccordion';
@@ -55,6 +55,12 @@ export default function Home() {
             </p>
             <div className="mt-7 flex flex-wrap gap-3">
               <CtaButton source="hero">Book Free Counselling</CtaButton>
+              <a
+                href={`tel:${siteConfig.phoneRaw}`}
+                className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 font-semibold text-navy transition hover:bg-ivory"
+              >
+                <Phone className="h-4 w-4 text-crimson" /> Call {siteConfig.phoneDisplay}
+              </a>
               <Link href="/eligibility/" className="rounded-lg border border-white/40 px-6 py-3 font-semibold hover:bg-white/10">
                 Check My Eligibility
               </Link>
