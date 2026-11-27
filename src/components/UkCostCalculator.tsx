@@ -14,7 +14,7 @@ const tuitionBands = {
 const scoreWaiver = [0, 0.1, 0.2, 0.3]; // fraction of... capped below
 
 const sel =
-  'w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20';
+  'min-h-[48px] w-full rounded-lg border border-slate-400 bg-white px-3 py-2.5 text-base focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20';
 
 export default function UkCostCalculator() {
   const [location, setLocation] = useState<'london' | 'outside'>('outside');
@@ -80,6 +80,7 @@ export default function UkCostCalculator() {
         </dl>
         <p className="mt-3 text-xs text-white/60">Indicative only (£1 ≈ ₹{GBP_INR}). Actual fees, scholarships and living-cost rules vary by university and year.</p>
         <button
+          type="button"
           onClick={() =>
             openModal({
               target: `${level === 'master' ? "1-Yr Master's" : "Bachelor's"} (${location === 'london' ? 'London' : 'Outside London'})`,

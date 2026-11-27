@@ -7,7 +7,7 @@ import LeadCaptureForm from './LeadCaptureForm';
 const steps = ['Academics', 'English & gap', 'Preferences', 'Result'];
 
 const sel =
-  'w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm focus:border-navy focus:outline-none';
+  'min-h-[48px] w-full rounded-lg border border-slate-400 bg-white px-3 py-2.5 text-base focus:border-navy focus:outline-none';
 
 export default function EligibilityWizard() {
   const [step, setStep] = useState(0);
@@ -36,7 +36,11 @@ export default function EligibilityWizard() {
     <div className="mx-auto max-w-2xl rounded-2xl bg-white p-6 shadow-lg md:p-8">
       <ol className="mb-6 flex gap-2">
         {steps.map((s, i) => (
-          <li key={s} className={`flex-1 rounded-full py-1.5 text-center text-xs font-semibold ${i <= step ? 'bg-navy text-white' : 'bg-slate-100 text-slate-500'}`}>
+          <li
+            key={s}
+            aria-current={i === step ? 'step' : undefined}
+            className={`flex-1 rounded-full py-1.5 text-center text-xs font-semibold ${i <= step ? 'bg-navy text-white' : 'bg-slate-100 text-slate-600'}`}
+          >
             {s}
           </li>
         ))}
@@ -57,7 +61,7 @@ export default function EligibilityWizard() {
           </select>
           <label className="block text-sm font-semibold text-navy">
             Number of backlogs
-            <input type="number" min={0} className={`${sel} mt-1`} value={a.backlogs} onChange={(e) => set('backlogs', Math.max(0, Number(e.target.value)))} />
+            <input type="number" min={0} max={30} className={`${sel} mt-1`} value={a.backlogs} onChange={(e) => set('backlogs', Math.min(30, Math.max(0, Number(e.target.value) || 0)))} />
           </label>
         </div>
       )}
@@ -65,7 +69,7 @@ export default function EligibilityWizard() {
         <div className="space-y-4">
           <label className="block text-sm font-semibold text-navy">
             Study / work gap (years)
-            <input type="number" min={0} className={`${sel} mt-1`} value={a.gap} onChange={(e) => set('gap', Math.max(0, Number(e.target.value)))} />
+            <input type="number" min={0} max={20} className={`${sel} mt-1`} value={a.gap} onChange={(e) => set('gap', Math.min(20, Math.max(0, Number(e.target.value) || 0)))} />
           </label>
           <select className={sel} value={a.english} onChange={(e) => set('english', e.target.value)} aria-label="English status">
             <option value="MOI">MOI eligible</option>
@@ -111,11 +115,11 @@ export default function EligibilityWizard() {
       )}
 
       <div className="mt-6 flex justify-between">
-        <button disabled={step === 0} onClick={() => setStep(step - 1)} className="rounded-lg px-4 py-2 text-sm font-semibold text-navy disabled:opacity-30">
+        <button type="button" disabled={step === 0} onClick={() => setStep(step - 1)} className="min-h-[44px] rounded-lg px-4 py-2 text-sm font-semibold text-navy disabled:opacity-30">
           Back
         </button>
         {step < 3 && (
-          <button onClick={() => setStep(step + 1)} className="rounded-lg bg-navy px-5 py-2 text-sm font-semibold text-white hover:bg-navy-light">
+          <button type="button" onClick={() => setStep(step + 1)} className="min-h-[44px] rounded-lg bg-navy px-5 py-2 text-sm font-semibold text-white hover:bg-navy-light">
             {step === 2 ? 'See my result' : 'Next'}
           </button>
         )}

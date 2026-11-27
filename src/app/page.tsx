@@ -103,7 +103,7 @@ export default function Home() {
               <div key={i.name} className="rounded-xl bg-white p-6 shadow-sm">
                 <span className="text-xs font-bold uppercase tracking-wide text-crimson">{i.tag}</span>
                 <h3 className="text-2xl font-bold text-navy">{i.name}</h3>
-                <p className="text-sm font-semibold text-gold">{i.deadline}</p>
+                <p className="text-sm font-semibold text-amber-800">{i.deadline}</p>
                 <p className="mt-2 text-sm text-slate-600">{i.detail}</p>
                 <ul className="mt-3 space-y-1 text-sm text-slate-700">
                   {i.pros.map((p) => <li key={p}>✓ {p}</li>)}

@@ -29,6 +29,7 @@ export default function LeadCaptureForm({
 }) {
   const [done, setDone] = useState(false);
   const [error, setError] = useState('');
+  const [deliveryFallback, setDeliveryFallback] = useState(false);
   const [summary, setSummary] = useState('');
   const phoneRef = useRef<HTMLInputElement>(null);
   const errorId = useId();
@@ -46,13 +47,23 @@ export default function LeadCaptureForm({
       return;
     }
     setError('');
+    setDeliveryFallback(false);
     data.source = prefill?.source || 'website';
     fetch('/api/lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
       keepalive: true,
-    }).catch(() => {});
+    })
+      .then(async (res) => {
+        if (!res.ok) {
+          setDeliveryFallback(true);
+          return;
+        }
+        const body = (await res.json().catch(() => null)) as { emailSent?: boolean } | null;
+        if (body && body.emailSent === false) setDeliveryFallback(true);
+      })
+      .catch(() => setDeliveryFallback(true));
     const lines = [
       'Hi X-Axis, I would like free UK study counselling.',
       `Name: ${data.name}`,
@@ -74,7 +85,9 @@ export default function LeadCaptureForm({
         <CheckCircle2 aria-hidden="true" className="mx-auto h-12 w-12 text-green-600" />
         <h3 className="mt-3 text-xl font-bold text-navy">Thank you!</h3>
         <p className="mt-1 text-sm text-slate-600">
-          Our UK counsellor will contact you shortly. For the fastest reply, send your details on WhatsApp.
+          {deliveryFallback
+            ? 'Please tap WhatsApp or Call below to send your enquiry right away.'
+            : 'Our UK counsellor will contact you shortly. For the fastest reply, send your details on WhatsApp.'}
         </p>
         <div className="mt-5 flex flex-col gap-3">
           <a

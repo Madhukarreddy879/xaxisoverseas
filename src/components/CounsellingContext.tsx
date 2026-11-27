@@ -35,6 +35,7 @@ export function CounsellingProvider({ children }: { children: React.ReactNode })
     if (!dialog) return;
     if (open && !dialog.open) {
       dialog.showModal();
+      dialog.querySelector<HTMLElement>('[autofocus]')?.focus();
     } else if (!open && dialog.open) {
       dialog.close();
     }

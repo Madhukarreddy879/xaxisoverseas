@@ -28,14 +28,17 @@ export default function UniversityExplorer() {
 
   return (
     <div>
-      <div className="flex flex-col gap-4 md:flex-row md:items-center">
+      <search className="flex flex-col gap-4 md:flex-row md:items-center">
         <div className="relative md:w-80">
-          <Search className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
+          <Search aria-hidden="true" className="absolute left-3 top-3.5 h-4 w-4 text-slate-400" />
           <input
+            type="search"
             value={q}
             onChange={(e) => setQ(e.target.value)}
+            autoCorrect="off"
+            spellCheck={false}
             placeholder="Search university, city or course"
-            className="w-full rounded-lg border border-slate-300 py-2.5 pl-9 pr-3 text-sm focus:border-navy focus:outline-none"
+            className="min-h-[48px] w-full rounded-lg border border-slate-400 py-2.5 pl-9 pr-3 text-base focus:border-navy focus:outline-none"
             aria-label="Search universities"
           />
         </div>
@@ -46,20 +49,20 @@ export default function UniversityExplorer() {
               type="button"
               aria-pressed={f === x}
               onClick={() => setF(x)}
-              className={`rounded-full px-4 py-1.5 text-sm font-semibold ${f === x ? 'bg-navy text-white' : 'bg-white text-navy ring-1 ring-slate-300 hover:ring-navy'}`}
+              className={`min-h-[40px] rounded-full px-4 py-1.5 text-sm font-semibold ${f === x ? 'bg-navy text-white' : 'bg-white text-navy ring-1 ring-slate-300 hover:ring-navy'}`}
             >
               {x}
             </button>
           ))}
         </div>
-      </div>
+      </search>
       <p className="mt-4 text-sm text-slate-500">{list.length} universities shown</p>
       <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {list.map((u) => (
           <article key={u.name} className="flex flex-col rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
             <div className="flex items-start justify-between gap-2">
-              <h3 className="font-bold text-navy">{u.name}</h3>
-              <span className="shrink-0 rounded bg-gold-light px-2 py-0.5 text-[11px] font-semibold text-gold">{u.tier}</span>
+              <h2 className="font-bold text-navy">{u.name}</h2>
+              <span className="shrink-0 rounded bg-gold-light px-2 py-0.5 text-[11px] font-semibold text-amber-800">{u.tier}</span>
             </div>
             <p className="text-sm text-slate-500">{u.city}</p>
             <div className="mt-3 flex flex-wrap gap-1.5 text-xs">
@@ -74,6 +77,7 @@ export default function UniversityExplorer() {
               <div><dt className="inline font-semibold">Popular: </dt><dd className="inline">{u.courses.join(', ')}</dd></div>
             </dl>
             <button
+              type="button"
               onClick={() => openModal({ university: u.name, source: 'university-card' })}
               className="mt-4 rounded-lg bg-crimson px-4 py-2.5 text-sm font-semibold text-white hover:bg-crimson-dark"
             >
