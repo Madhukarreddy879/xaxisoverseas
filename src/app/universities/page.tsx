@@ -1,4 +1,3 @@
-import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import UniversityExplorer from '@/components/UniversityExplorer';
 
@@ -28,9 +27,7 @@ export default function Page() {
         </div>
       </section>
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
-        <Suspense fallback={<p className="py-8 text-sm text-slate-500">Loading universities…</p>}>
-          <UniversityExplorer />
-        </Suspense>
+        <UniversityExplorer />
       </div>
     </>
   );

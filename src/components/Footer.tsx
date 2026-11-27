@@ -15,7 +15,7 @@ export default function Footer() {
         </div>
         <div className="grid grid-cols-2 gap-6 lg:col-span-4">
           <div>
-            <h3 className="mb-3 text-sm font-bold uppercase tracking-wider text-white">Quick Links</h3>
+            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-white">Quick Links</h2>
             <ul className="space-y-2 text-sm">
               <li><Link href="/" className="hover:text-white">Home</Link></li>
               <li><Link href="/study-in-uk/" className="hover:text-white">Study in UK</Link></li>
@@ -28,7 +28,7 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h3 className="mb-3 text-sm font-bold uppercase tracking-wider text-white">UK Courses</h3>
+            <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-white">UK Courses</h2>
             <ul className="space-y-2 text-sm">
               {[
                 ['Data Science & AI', 'Data'],
@@ -48,7 +48,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="lg:col-span-4">
-          <h3 className="mb-3 text-sm font-bold uppercase tracking-wider text-white">Visit Our Office</h3>
+          <h2 className="mb-3 text-sm font-bold uppercase tracking-wider text-white">Visit Our Office</h2>
           <ul className="space-y-2.5 text-sm">
             <li className="flex gap-2.5">
               <MapPin aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-gold" />

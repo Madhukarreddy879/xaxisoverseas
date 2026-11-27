@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { Suspense, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { Search } from 'lucide-react';
 import { universities } from '@/data/ukData';
@@ -8,16 +8,19 @@ import { useCounselling } from './CounsellingContext';
 
 const filters = ['All', 'Russell Group', 'London', 'MOI Friendly', 'May Intake'] as const;
 
-export default function UniversityExplorer() {
+function QuerySync({ onQuery }: { onQuery: (q: string) => void }) {
   const searchParams = useSearchParams();
   const urlQuery = searchParams.get('q') ?? '';
-  const [q, setQ] = useState(urlQuery);
+  useEffect(() => {
+    onQuery(urlQuery);
+  }, [urlQuery, onQuery]);
+  return null;
+}
+
+export default function UniversityExplorer() {
+  const [q, setQ] = useState('');
   const [f, setF] = useState<(typeof filters)[number]>('All');
   const { openModal } = useCounselling();
-
-  useEffect(() => {
-    setQ(urlQuery);
-  }, [urlQuery]);
 
   const list = useMemo(
     () =>
@@ -35,6 +38,9 @@ export default function UniversityExplorer() {
 
   return (
     <div>
+      <Suspense fallback={null}>
+        <QuerySync onQuery={setQ} />
+      </Suspense>
       <search className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="relative md:w-80">
           <Search aria-hidden="true" className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />

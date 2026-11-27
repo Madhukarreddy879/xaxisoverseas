@@ -58,6 +58,7 @@ export default function EligibilityWizard() {
 
       {step === 0 && (
         <div className="space-y-4">
+          <h2 className="text-lg font-bold text-navy">Step 1: Academic Background</h2>
           <label htmlFor={`${uid}-qual`} className="block text-sm font-semibold text-navy">
             Highest qualification
             <select id={`${uid}-qual`} name="qualification" className={sel} value={a.qualification} onChange={(e) => set('qualification', e.target.value)}>
@@ -92,6 +93,7 @@ export default function EligibilityWizard() {
       )}
       {step === 1 && (
         <div className="space-y-4">
+          <h2 className="text-lg font-bold text-navy">Step 2: English &amp; Study Gap</h2>
           <label htmlFor={`${uid}-gap`} className="block text-sm font-semibold text-navy">
             Study / work gap (years)
             <input
@@ -117,6 +119,7 @@ export default function EligibilityWizard() {
       )}
       {step === 2 && (
         <div className="space-y-4">
+          <h2 className="text-lg font-bold text-navy">Step 3: UK Preferences</h2>
           <label htmlFor={`${uid}-intake`} className="block text-sm font-semibold text-navy">
             Preferred UK intake
             <select id={`${uid}-intake`} name="intake" className={sel} value={a.intake} onChange={(e) => set('intake', e.target.value)}>
