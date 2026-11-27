@@ -214,7 +214,7 @@ export default function Home() {
             </a>
           </div>
         </div>
-        <MapEmbed height={320} />
+        <MapEmbed />
       </section>
     </>
   );

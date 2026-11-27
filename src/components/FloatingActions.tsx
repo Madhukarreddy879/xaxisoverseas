@@ -30,13 +30,13 @@ export default function FloatingActions() {
         </a>
       </div>
       <div className="mobile-safe-bar fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t bg-white shadow-[0_-2px_10px_rgba(0,0,0,0.12)] md:hidden">
-        <a href={`tel:${siteConfig.phoneRaw}`} className="flex min-h-[56px] flex-col items-center justify-center gap-0.5 bg-navy py-2 text-xs font-semibold text-white active:opacity-85">
+        <a href={`tel:${siteConfig.phoneRaw}`} className="mobile-safe-cell flex min-h-[56px] flex-col items-center justify-center gap-0.5 bg-navy pt-2 text-xs font-semibold text-white active:opacity-85">
           <Phone aria-hidden="true" className="h-5 w-5 text-gold" /> Call Now
         </a>
-        <a href={wa} target="_blank" rel="noopener noreferrer" className="flex min-h-[56px] flex-col items-center justify-center gap-0.5 py-2 text-xs font-semibold text-green-700 active:bg-slate-50">
+        <a href={wa} target="_blank" rel="noopener noreferrer" className="mobile-safe-cell flex min-h-[56px] flex-col items-center justify-center gap-0.5 bg-white pt-2 text-xs font-semibold text-green-700 active:bg-slate-50">
           <MessageCircle aria-hidden="true" className="h-5 w-5" /> WhatsApp
         </a>
-        <button type="button" onClick={() => openModal({ source: 'mobile-bar' })} className="flex min-h-[56px] flex-col items-center justify-center gap-0.5 bg-crimson py-2 text-xs font-semibold text-white active:opacity-85">
+        <button type="button" onClick={() => openModal({ source: 'mobile-bar' })} className="mobile-safe-cell flex min-h-[56px] flex-col items-center justify-center gap-0.5 bg-crimson pt-2 text-xs font-semibold text-white active:opacity-85">
           <CalendarCheck aria-hidden="true" className="h-5 w-5" /> Free Counselling
         </button>
       </div>

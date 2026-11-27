@@ -44,7 +44,7 @@ export default function Page() {
           <a href={siteConfig.googleMapsDirectionsUrl} target="_blank" rel="noopener noreferrer" className="inline-block text-sm font-semibold text-crimson hover:underline">Open in Google Maps →</a>
         </div>
       </div>
-      <div className="mx-auto max-w-5xl px-4 pb-14"><MapEmbed height={420} /></div>
+      <div className="mx-auto max-w-5xl px-4 pb-14"><MapEmbed tall /></div>
     </>
   );
 }
