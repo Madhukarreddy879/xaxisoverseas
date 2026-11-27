@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Award, Banknote, BookOpenCheck, Briefcase, GraduationCap, MapPin, ShieldCheck, Star } from 'lucide-react';
+import { Award, Banknote, BookOpenCheck, Briefcase, CheckCircle2, GraduationCap, MapPin, ShieldCheck } from 'lucide-react';
 import LeadCaptureForm from '@/components/LeadCaptureForm';
 import UkCostCalculator from '@/components/UkCostCalculator';
 import FaqAccordion from '@/components/FaqAccordion';
 import CtaButton from '@/components/CtaButton';
 import MapEmbed from '@/components/MapEmbed';
-import { courseStreams, faqs, intakes, processSteps, testimonials, universities } from '@/data/ukData';
+import { courseStreams, faqs, intakes, processSteps, trustHighlights, universities } from '@/data/ukData';
 import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
@@ -176,18 +176,17 @@ export default function Home() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-16">
-        <h2 className="text-center font-serif text-3xl font-bold text-navy">Student Stories</h2>
-        <p className="mt-2 text-center text-xs text-slate-500">Sample testimonials — replace with real student feedback before launch.</p>
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          {testimonials.map((t) => (
-            <figure key={t.name} className="rounded-xl border border-slate-200 p-6 shadow-sm">
-              <div className="flex text-gold">{Array.from({ length: 5 }).map((_, i) => <Star key={i} className="h-4 w-4 fill-current" />)}</div>
-              <blockquote className="mt-3 text-sm text-slate-700">“{t.quote}”</blockquote>
-              <figcaption className="mt-4 text-sm">
-                <strong className="text-navy">{t.name}</strong>, {t.from}
-                <div className="text-slate-500">{t.course} • {t.uni} • {t.intake}</div>
-              </figcaption>
-            </figure>
+        <h2 className="text-center font-serif text-3xl font-bold text-navy">Why Students Choose X-Axis</h2>
+        <p className="mx-auto mt-2 max-w-2xl text-center text-sm text-slate-600">
+          Dedicated exclusively to UK admissions so every student from Hyderabad &amp; Telangana gets accurate, honest advice.
+        </p>
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {trustHighlights.map((item) => (
+            <div key={item.title} className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <CheckCircle2 aria-hidden="true" className="h-6 w-6 text-crimson" />
+              <h3 className="mt-3 font-bold text-navy">{item.title}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-slate-600">{item.desc}</p>
+            </div>
           ))}
         </div>
       </section>

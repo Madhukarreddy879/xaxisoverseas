@@ -157,13 +157,15 @@ export async function onRequestPost(context) {
   }
   if (raw.length > MAX_BYTES) return json(request, { ok: false, error: 'Payload too large' }, 413);
 
+  const contentType = (request.headers.get('Content-Type') || '').toLowerCase();
+  const isFormPost = contentType.includes('application/x-www-form-urlencoded');
   let data;
   try {
-    data = JSON.parse(raw);
+    data = isFormPost ? Object.fromEntries(new URLSearchParams(raw)) : JSON.parse(raw);
   } catch {
-    return json(request, { ok: false, error: 'Invalid JSON' }, 400);
+    return json(request, { ok: false, error: 'Invalid request body' }, 400);
   }
-  if (!data || typeof data !== 'object') return json(request, { ok: false, error: 'Invalid JSON' }, 400);
+  if (!data || typeof data !== 'object') return json(request, { ok: false, error: 'Invalid request body' }, 400);
 
   // Honeypot: bots fill this hidden field. Pretend success, do nothing.
   if (String(data.website || '').trim()) return json(request, { ok: true });
@@ -193,5 +195,8 @@ export async function onRequestPost(context) {
     }
   };
   const [emailSent] = await Promise.all([sendZeptoMail(context.env, lead, receivedAt), sendWebhook()]);
+  if (isFormPost) {
+    return Response.redirect(new URL('/contact/?submitted=1', request.url).toString(), 303);
+  }
   return json(request, { ok: true, emailSent, receivedAt });
 }

@@ -20,9 +20,9 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <>
-      <section className="bg-navy py-14 text-white">
+      <section className="bg-navy py-10 text-white sm:py-14">
         <div className="mx-auto max-w-3xl px-4 text-center">
-          <h1 className="font-serif text-4xl font-bold">Check Your UK Eligibility</h1>
+          <h1 className="font-serif text-3xl font-bold sm:text-4xl">Check Your UK Eligibility</h1>
           <p className="mt-3 text-white/80">Answer a few quick questions and get an instant indication.</p>
         </div>
       </section>

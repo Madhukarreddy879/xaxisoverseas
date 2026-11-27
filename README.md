@@ -36,5 +36,4 @@ For local testing put it in `.dev.vars` (gitignored).
 The sender domain `xaxisoverseas.com` must be verified in the ZeptoMail/CPaaS agent.
 
 ## Before launch
-- Replace sample testimonials in `src/data/ukData.ts` with real ones.
 - Verify university fees, scholarships and UKVI figures against official sources.

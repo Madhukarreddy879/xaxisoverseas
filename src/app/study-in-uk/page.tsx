@@ -40,9 +40,9 @@ const cities = [
 export default function Page() {
   return (
     <>
-      <section className="bg-navy py-14 text-white">
+      <section className="bg-navy py-10 text-white sm:py-14">
         <div className="mx-auto max-w-4xl px-4">
-          <h1 className="font-serif text-4xl font-bold">Study in the UK</h1>
+          <h1 className="font-serif text-3xl font-bold sm:text-4xl">Study in the UK</h1>
           <p className="mt-3 text-white/80">Everything Indian students need to know before applying — in plain language.</p>
         </div>
       </section>

@@ -77,10 +77,11 @@ export const processSteps = [
   { title: 'Fly & settle', desc: 'Pre-departure briefing, accommodation and arrival support.' },
 ];
 
-export const testimonials = [
-  { name: 'Sample Student A', from: 'Hyderabad', course: 'MSc Data Science', uni: 'Coventry University', intake: 'Sep intake', quote: 'The team explained every step clearly and prepared me well for the university interview.' },
-  { name: 'Sample Student B', from: 'Warangal', course: 'MSc Cyber Security', uni: 'University of Greenwich', intake: 'Jan intake', quote: 'Honest guidance on costs and part-time work helped my family plan with confidence.' },
-  { name: 'Sample Student C', from: 'Vijayawada', course: 'MBA', uni: 'University of Hertfordshire', intake: 'Sep intake', quote: 'From SOP to visa documents, everything was organised. I always knew what came next.' },
+export const trustHighlights = [
+  { title: '100% UK-Focused Counsellors', desc: 'We specialize solely in the UK—keeping up with current university entry rules, MOI policies, and UKVI fund guidelines.' },
+  { title: 'Transparent Fee & Loan Planning', desc: 'Clear GBP-to-INR cost breakdowns, scholarship checks, and bank education loan guidance before you commit.' },
+  { title: 'Dedicated Pre-CAS Mock Prep', desc: 'One-on-one credibility interview coaching so you answer course, university, and career questions confidently.' },
+  { title: 'Walk-In Ameerpet Support', desc: 'Meet our team face-to-face at KVR Enclave, beside AAA Theatre—just a short walk from Ameerpet Metro.' },
 ];
 
 export const faqs = [
