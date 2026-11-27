@@ -60,15 +60,15 @@ export default function Page() {
           </p>
         </section>
         <section>
-          <h2 className="font-serif text-2xl font-bold text-navy">UKVI Financial Rules (28-Day Rule)</h2>
+          <h2 className="font-serif text-2xl font-bold text-navy">UKVI Financial Rules (28-Day + 31-Day Rule)</h2>
           <p className="mt-3 text-slate-700">
-            You need to show your first-year tuition (less any deposit) plus living costs for up to 9 months, held for 28 consecutive days. UKVI living-cost figures at the time of writing were £1,483/month in London and £1,136/month outside London (about £13,347 and £10,224 for 9 months). Education loans must meet specific UKVI letter requirements. Always check gov.uk for the latest amounts.
+            You need to show your first-year tuition (less any deposit paid on your CAS) plus living costs for up to 9 months, held for 28 consecutive days ending within 31 days of your visa application date. Effective 30 November 2026, official GOV.UK living-cost rates are £1,570/month in London (£14,130 for 9 months) and £1,203/month outside London (£10,827 for 9 months). Education loans must meet UKVI sanction-letter rules—always verify the latest figures on gov.uk.
           </p>
         </section>
         <section>
           <h2 className="font-serif text-2xl font-bold text-navy">Graduate Route (Post-Study Work) Visa</h2>
           <p className="mt-3 text-slate-700">
-            After successfully completing an eligible UK degree, you can usually apply to work in the UK for 2 years (3 years for PhD graduates). Policies can change, so rely on gov.uk for current rules.
+            After successfully completing an eligible UK degree, Bachelor&apos;s and Master&apos;s graduates applying on or after 1 January 2027 can stay and work for 18 months (2 years for applications made on or before 31 December 2026), and PhD graduates receive 3 years. Always check gov.uk for the latest rules.
           </p>
         </section>
         <section>

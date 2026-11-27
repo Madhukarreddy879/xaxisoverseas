@@ -22,6 +22,7 @@ export default function Footer() {
               <li><Link href="/universities/" className="hover:text-white">UK Universities</Link></li>
               <li><Link href="/services/" className="hover:text-white">Our Services</Link></li>
               <li><Link href="/eligibility/" className="hover:text-white">Check Eligibility</Link></li>
+              <li><Link href="/blog/" className="hover:text-white">UK Blog &amp; Guides</Link></li>
               <li><Link href="/about/" className="hover:text-white">About Us</Link></li>
               <li><Link href="/contact/" className="hover:text-white">Contact</Link></li>
             </ul>

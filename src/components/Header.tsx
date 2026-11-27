@@ -14,6 +14,7 @@ const links = [
   { href: '/universities/', label: 'Universities' },
   { href: '/services/', label: 'Services' },
   { href: '/eligibility/', label: 'Check Eligibility' },
+  { href: '/blog/', label: 'Blog' },
   { href: '/about/', label: 'About' },
   { href: '/contact/', label: 'Contact' },
 ];

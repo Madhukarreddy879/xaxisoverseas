@@ -38,7 +38,7 @@ export const metadata: Metadata = {
 
 const why = [
   { icon: GraduationCap, title: "1-Year Master's", text: "Most UK master's degrees finish in 12 months — saving a full year of tuition and living costs." },
-  { icon: Briefcase, title: 'Graduate Route Visa', text: 'Eligible graduates can stay and work in the UK for 2 years after study (3 years for PhD).' },
+  { icon: Briefcase, title: 'Graduate Route Visa', text: 'Work in the UK after study: 18 months for Bachelor’s/Master’s from Jan 2027 (3 years for PhD).' },
   { icon: BookOpenCheck, title: 'MOI / Without IELTS', text: 'Many UK universities accept Medium of Instruction (MOI) or 12th English marks in place of IELTS.' },
   { icon: ShieldCheck, title: 'Clear Visa Rules', text: 'Transparent points-based student visa process with clear 28-day financial documentation.' },
   { icon: Banknote, title: 'Part-Time Work Rights', text: 'Work up to 20 hours per week during term time and full-time during official vacations.' },
@@ -275,7 +275,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-slate-100/80 py-10 md:py-16">
+      <section id="cost-estimator" className="bg-slate-100/80 py-10 md:py-16">
         <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-7 max-w-2xl text-center sm:mb-9">
             <p className="text-xs font-bold uppercase tracking-widest text-crimson">Budget Planning</p>

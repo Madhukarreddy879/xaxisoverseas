@@ -26,7 +26,8 @@ export default function UkCostCalculator() {
 
   const r = useMemo(() => {
     const tuition = tuitionBands[band][level];
-    const living = location === 'london' ? 13347 : 10224;
+    // Official GOV.UK maintenance rates effective 30 Nov 2026: £1,570/mo London (£14,130), £1,203/mo outside (£10,827)
+    const living = location === 'london' ? 14130 : 10827;
     const scholarship = Math.min(Math.round(tuition * scoreWaiver[score] * 0.5), 6000);
     const total = tuition + living - scholarship;
     return { tuition, living, scholarship, total };
@@ -107,7 +108,7 @@ export default function UkCostCalculator() {
               <dd className="font-semibold">{gbp(r.tuition)}</dd>
             </div>
             <div className="flex justify-between gap-4">
-              <dt className="text-white/80">UKVI living funds (9 months)</dt>
+              <dt className="text-white/80">UKVI living funds (9 mo, Nov 2026 rate)</dt>
               <dd className="font-semibold">{gbp(r.living)}</dd>
             </div>
             <div className="flex justify-between gap-4 text-emerald-300">
