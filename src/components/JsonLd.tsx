@@ -11,6 +11,7 @@ export default function JsonLd() {
         name: siteConfig.legalName,
         alternateName: 'X-Axis Overseas',
         url: siteConfig.siteUrl,
+        logo: `${siteConfig.siteUrl}/logo.png`,
         email: siteConfig.email,
         telephone: siteConfig.phoneRaw,
         description: 'UK study abroad and student visa consultants in Hyderabad.',
