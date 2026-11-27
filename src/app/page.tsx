@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Award, Banknote, BookOpenCheck, Briefcase, GraduationCap, MapPin, Phone, ShieldCheck, Star } from 'lucide-react';
+import { Award, Banknote, BookOpenCheck, Briefcase, GraduationCap, MapPin, ShieldCheck, Star } from 'lucide-react';
 import LeadCaptureForm from '@/components/LeadCaptureForm';
 import UkCostCalculator from '@/components/UkCostCalculator';
 import FaqAccordion from '@/components/FaqAccordion';
@@ -42,41 +42,41 @@ export default function Home() {
   return (
     <>
       <section className="grid-pattern bg-navy text-white">
-        <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 sm:py-16 lg:grid-cols-5 lg:gap-10 lg:py-24">
+        <div className="mx-auto grid max-w-7xl items-center gap-8 px-4 py-9 sm:py-16 lg:grid-cols-5 lg:gap-10 lg:py-20">
           <div className="lg:col-span-3">
-            <p className="mb-3 inline-block rounded-full bg-white/10 px-3 py-1 text-xs font-semibold tracking-wide text-gold">
+            <p className="mb-3 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/10 px-3 py-1 text-[11px] font-semibold tracking-wider text-gold sm:text-xs">
               UK SPECIALISTS • AMEERPET, HYDERABAD
             </p>
-            <h1 className="font-serif text-[clamp(2rem,1.4rem+3vw,3.25rem)] font-bold leading-tight">
-              Your Pathway to a <span className="text-gold">UK Degree</span> Starts Here
+            <h1 className="font-serif text-[clamp(1.95rem,1.35rem+3vw,3.25rem)] font-bold leading-[1.15]">
+              Your Pathway to a <span className="whitespace-nowrap text-gold">UK Degree</span> Starts Here
             </h1>
-            <p className="mt-4 max-w-xl text-base text-white/80 sm:mt-5 sm:text-lg">
+            <p className="mt-4 max-w-xl text-[15px] leading-relaxed text-white/80 sm:mt-5 sm:text-lg">
               X-Axis Overseas guides Hyderabad students through UK university admissions, scholarships, MOI / without-IELTS options and student visas — end to end.
             </p>
-            <div className="mt-6 flex flex-col gap-3 sm:mt-7 sm:flex-row sm:flex-wrap">
-              <CtaButton source="hero" className="min-h-[48px] w-full rounded-lg bg-crimson px-6 py-3 font-semibold text-white hover:bg-crimson-dark sm:w-auto">
+            <div className="mt-6 flex flex-col gap-2.5 sm:mt-7 sm:flex-row sm:flex-wrap sm:gap-3">
+              <CtaButton
+                source="hero"
+                className="min-h-[48px] w-full rounded-xl bg-crimson px-6 py-3 font-semibold text-white shadow-lg shadow-crimson/25 transition hover:bg-crimson-dark sm:w-auto"
+              >
                 Book Free Counselling
               </CtaButton>
-              <a
-                href={`tel:${siteConfig.phoneRaw}`}
-                className="inline-flex min-h-[48px] w-full items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 font-semibold text-navy transition hover:bg-ivory sm:w-auto"
+              <Link
+                href="/eligibility/"
+                className="inline-flex min-h-[48px] w-full items-center justify-center rounded-xl border border-white/30 bg-white/5 px-6 py-3 font-semibold text-white transition hover:bg-white/15 sm:w-auto"
               >
-                <Phone aria-hidden="true" className="h-4 w-4 text-crimson" /> Call {siteConfig.phoneDisplay}
-              </a>
-              <Link href="/eligibility/" className="inline-flex min-h-[48px] w-full items-center justify-center rounded-lg border border-white/40 px-6 py-3 font-semibold hover:bg-white/10 sm:w-auto">
                 Check My Eligibility
               </Link>
             </div>
-            <dl className="mt-10 grid grid-cols-2 gap-6 sm:grid-cols-4">
+            <dl className="mt-7 grid grid-cols-2 gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4 sm:mt-9 sm:grid-cols-4 sm:gap-5 sm:p-5">
               {stats.map(([n, l]) => (
                 <div key={l}>
-                  <dt className="text-2xl font-extrabold text-gold">{n}</dt>
-                  <dd className="text-xs text-white/70">{l}</dd>
+                  <dt className="text-xl font-extrabold text-gold sm:text-2xl">{n}</dt>
+                  <dd className="mt-0.5 text-xs text-white/75">{l}</dd>
                 </div>
               ))}
             </dl>
           </div>
-          <div className="rounded-2xl bg-white p-6 text-slate-900 shadow-2xl lg:col-span-2">
+          <div className="rounded-2xl bg-white p-5 text-slate-900 shadow-2xl sm:p-6 lg:col-span-2">
             <h2 className="mb-1 text-xl font-bold text-navy">Get a Free Callback</h2>
             <p className="mb-4 text-sm text-slate-600">Tell us a little — a UK counsellor will call you.</p>
             <LeadCaptureForm variant="compact" prefill={{ source: 'hero-form' }} />

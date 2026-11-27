@@ -56,24 +56,16 @@ export default function Header() {
           })}
         </ul>
         <div className="flex items-center gap-2">
-          <a
-            href={`tel:${siteConfig.phoneRaw}`}
-            aria-label={`Call ${siteConfig.phoneDisplay}`}
-            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-1.5 rounded-lg border border-navy px-3 py-2 text-sm font-semibold text-navy transition hover:bg-navy hover:text-white"
-          >
-            <Phone aria-hidden="true" className="h-4 w-4" />
-            <span className="hidden sm:inline">Call Now</span>
-          </a>
           <button
             type="button"
             onClick={() => openModal({ source: 'header' })}
-            className="hidden min-h-[44px] rounded-lg bg-crimson px-4 py-2.5 text-sm font-semibold text-white hover:bg-crimson-dark sm:block"
+            className="hidden min-h-[44px] rounded-xl bg-crimson px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-crimson-dark sm:block"
           >
             Book Free Counselling
           </button>
           <button
             type="button"
-            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-md p-2 text-navy lg:hidden"
+            className="inline-flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl p-2 text-navy hover:bg-slate-100 lg:hidden"
             onClick={() => setOpen((o) => !o)}
             aria-label="Toggle menu"
             aria-expanded={open}
