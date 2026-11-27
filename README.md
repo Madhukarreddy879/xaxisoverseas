@@ -29,6 +29,13 @@ the box: `wrangler.jsonc` serves `./out` and `worker.js` handles `POST /api/lead
 Use build command `npm run build` and deploy command `npx wrangler deploy`.
 Set `LEAD_WEBHOOK_URL` as a Worker variable/secret.
 
+### Enquiry emails (Zoho CPaaS / ZeptoMail)
+Each enquiry is emailed from `info@xaxisoverseas.com` to the admissions inbox (see `vars` in `wrangler.jsonc`).
+Add the API key as a **Secret** (never commit it): Cloudflare Dashboard → Workers & Pages → `xaxisoverseas`
+→ Settings → Variables and Secrets → Add → Type **Secret**, name `ZEPTOMAIL_API_KEY`, value `Zoho-enczapikey …`.
+For local testing put it in `.dev.vars` (gitignored).
+The sender domain `xaxisoverseas.com` must be verified in the ZeptoMail/CPaaS agent.
+
 ## Before launch
 - Replace sample testimonials in `src/data/ukData.ts` with real ones.
 - Verify university fees, scholarships and UKVI figures against official sources.

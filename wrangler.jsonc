@@ -5,6 +5,12 @@
   "observability": {
     "enabled": true
   },
+  "vars": {
+    "ZEPTOMAIL_API_URL": "https://cpaas.zoho.in/v1.1/email",
+    "ZEPTOMAIL_AGENT_ALIAS": "7cfc3c65bb67e8ee",
+    "ZEPTOMAIL_FROM": "info@xaxisoverseas.com",
+    "ZEPTOMAIL_TO": "campussconnects@gmail.com"
+  },
   "assets": {
     "directory": "./out",
     "binding": "ASSETS",
