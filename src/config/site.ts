@@ -8,10 +8,10 @@ export const siteConfig = {
   domain: 'xaxisoverseas.com',
   siteUrl: 'https://xaxisoverseas.com',
   email: 'info@xaxisoverseas.com',
-  // TODO: replace with real numbers
-  phoneDisplay: '+91 90000 00000',
-  phoneRaw: '+919000000000',
-  whatsappNumber: '919000000000',
+  // Contact phone & WhatsApp
+  phoneDisplay: '+91 93462 14771',
+  phoneRaw: '+919346214771',
+  whatsappNumber: '919346214771',
   address: {
     line1: '1st Floor, KVR Enclave, above Bata showroom',
     line2: 'beside AAA theatre, Swathi Avenue, Ameerpet',

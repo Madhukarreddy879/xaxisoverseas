@@ -4,7 +4,6 @@ UK study-abroad consultancy website (Next.js static export, Tailwind CSS) for Cl
 
 ## Update contact details
 Edit **one file**: `src/config/site.ts` (phone, WhatsApp number, email, office hours, address).
-The phone/WhatsApp values are currently placeholders (`+91 90000 00000`).
 
 ## Run locally
 ```bash
