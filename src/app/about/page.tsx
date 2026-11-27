@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     description:
       'X-Axis Overseas is a UK-first study abroad consultancy in Ameerpet, Hyderabad offering transparent, ethical counselling.',
     url: 'https://xaxisoverseas.com/about/',
-    images: [{ url: '/og-card.svg', width: 1200, height: 630 }],
+    images: [{ url: '/og-card.png', type: 'image/png', width: 1200, height: 630 }],
   },
 };
 

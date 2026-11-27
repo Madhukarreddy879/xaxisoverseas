@@ -1,11 +1,11 @@
 // Cloudflare Worker entry (Workers Static Assets).
 // Serves the static export in ./out and handles POST /api/lead.
-import { onRequestOptions, onRequestPost } from './functions/api/lead.js';
+import { corsFor, onRequestOptions, onRequestPost } from './functions/api/lead.js';
 
-const jsonResponse = (body, status) =>
+const jsonResponse = (request, body, status) =>
   new Response(JSON.stringify(body), {
     status,
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', ...corsFor(request) },
   });
 
 export default {
@@ -17,11 +17,11 @@ export default {
       if (request.method === 'POST') {
         return onRequestPost({ request, env, waitUntil: ctx?.waitUntil?.bind(ctx) });
       }
-      return jsonResponse({ ok: false, error: 'Method not allowed' }, 405);
+      return jsonResponse(request, { ok: false, error: 'Method not allowed' }, 405);
     }
 
     if (pathname.startsWith('/api/')) {
-      return jsonResponse({ ok: false, error: 'Not found' }, 404);
+      return jsonResponse(request, { ok: false, error: 'Not found' }, 404);
     }
 
     return env.ASSETS.fetch(request);

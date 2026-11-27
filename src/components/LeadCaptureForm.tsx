@@ -46,6 +46,7 @@ export default function LeadCaptureForm({
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
+      keepalive: true,
     }).catch(() => {});
     const lines = [
       'Hi X-Axis, I would like free UK study counselling.',

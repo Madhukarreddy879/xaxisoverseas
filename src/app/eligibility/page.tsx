@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     description:
       'Check your eligibility for UK universities in 60 seconds and get a curated shortlist from X-Axis Overseas counsellors.',
     url: 'https://xaxisoverseas.com/eligibility/',
-    images: [{ url: '/og-card.svg', width: 1200, height: 630 }],
+    images: [{ url: '/og-card.png', type: 'image/png', width: 1200, height: 630 }],
   },
 };
 

@@ -5,9 +5,10 @@ const ALLOWED_ORIGINS = ['https://xaxisoverseas.com', 'https://www.xaxisoverseas
 const MAX_BYTES = 8192;
 const FIELDS = ['name', 'phone', 'email', 'intake', 'qualification', 'english', 'target', 'notes', 'source'];
 
-function corsFor(request) {
+export function corsFor(request) {
   const origin = request.headers.get('Origin');
-  const allow = origin && ALLOWED_ORIGINS.includes(origin) ? origin : ALLOWED_ORIGINS[0];
+  const sameOrigin = origin && origin === new URL(request.url).origin;
+  const allow = origin && (ALLOWED_ORIGINS.includes(origin) || sameOrigin) ? origin : ALLOWED_ORIGINS[0];
   return {
     'Access-Control-Allow-Origin': allow,
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
@@ -22,12 +23,34 @@ const json = (request, body, status = 200) =>
     headers: { 'Content-Type': 'application/json', ...corsFor(request) },
   });
 
-// Trim, cap length, strip leading spreadsheet-formula characters
-function clean(value, max) {
-  return String(value ?? '')
-    .trim()
-    .slice(0, max)
-    .replace(/^[=+\-@\s]+/, '');
+// Trim, cap length, strip leading spreadsheet-formula characters.
+// Single-line fields have CR/LF collapsed (prevents header injection); notes keep line breaks.
+function clean(value, max, multiline = false) {
+  const text = String(value ?? '');
+  const normalised = multiline
+    ? text.replace(/\r\n?/g, '\n')
+    : text.replace(/[\r\n]+/g, ' ');
+  return normalised.trim().slice(0, max).replace(/^[=+\-@\s]+/, '');
+}
+
+// Lightweight per-isolate rate limit (best effort; add a Cloudflare WAF rate-limit rule for hard limits)
+const RATE_LIMIT = 5;
+const RATE_WINDOW_MS = 60_000;
+const hits = new Map();
+function rateLimited(request) {
+  const ip = request.headers.get('CF-Connecting-IP');
+  if (!ip) return false;
+  const now = Date.now();
+  if (hits.size > 500) {
+    for (const [k, v] of hits) if (now - v.start > RATE_WINDOW_MS) hits.delete(k);
+  }
+  const entry = hits.get(ip);
+  if (!entry || now - entry.start > RATE_WINDOW_MS) {
+    hits.set(ip, { start: now, count: 1 });
+    return false;
+  }
+  entry.count += 1;
+  return entry.count > RATE_LIMIT;
 }
 
 export async function onRequestOptions({ request }) {
@@ -50,9 +73,11 @@ async function sendZeptoMail(env, lead, receivedAt) {
   const authHeader = rawKey.startsWith('Zoho-enczapikey ') ? rawKey : `Zoho-enczapikey ${rawKey}`;
   const alias = env.ZEPTOMAIL_AGENT_ALIAS || '7cfc3c65bb67e8ee';
 
+  // 10-digit Indian mobiles get the +91 country code so tel:/wa.me links work
+  const intlPhone = lead.phone.length === 10 && /^[6-9]/.test(lead.phone) ? '91' + lead.phone : lead.phone;
   const rows = [
     ['Name', esc(lead.name)],
-    ['Phone', `<a href="tel:+${esc(lead.phone)}">${esc(lead.phone)}</a> &middot; <a href="https://wa.me/${esc(lead.phone)}">WhatsApp</a>`],
+    ['Phone', `<a href="tel:+${esc(intlPhone)}">${esc(lead.phone)}</a> &middot; <a href="https://wa.me/${esc(intlPhone)}">WhatsApp</a>`],
     ['Email', esc(lead.email)],
     ['Intake', esc(lead.intake)],
     ['Qualification', esc(lead.qualification)],
@@ -96,6 +121,7 @@ async function sendZeptoMail(env, lead, receivedAt) {
       method: 'POST',
       headers: { Accept: 'application/json', 'Content-Type': 'application/json', Authorization: authHeader },
       body: JSON.stringify(payload),
+      signal: AbortSignal.timeout(8000),
     });
     if (!res.ok) {
       console.error('ZeptoMail error', res.status, (await res.text()).slice(0, 500));
@@ -114,6 +140,10 @@ export async function onRequestPost(context) {
   const origin = request.headers.get('Origin');
   if (origin && !ALLOWED_ORIGINS.includes(origin) && origin !== new URL(request.url).origin) {
     return json(request, { ok: false, error: 'Forbidden' }, 403);
+  }
+
+  if (rateLimited(request)) {
+    return json(request, { ok: false, error: 'Too many requests. Please try again in a minute.' }, 429);
   }
 
   const declared = Number(request.headers.get('Content-Length') || 0);
@@ -139,7 +169,7 @@ export async function onRequestPost(context) {
   if (String(data.website || '').trim()) return json(request, { ok: true });
 
   const lead = {};
-  for (const f of FIELDS) lead[f] = clean(data[f], f === 'notes' ? 500 : 200);
+  for (const f of FIELDS) lead[f] = clean(data[f], f === 'notes' ? 500 : 200, f === 'notes');
 
   const digits = lead.phone.replace(/\D/g, '');
   if (!lead.name || digits.length < 10 || digits.length > 15 || /^0+$/.test(digits)) {
@@ -148,18 +178,20 @@ export async function onRequestPost(context) {
   lead.phone = digits;
 
   const receivedAt = new Date().toISOString();
-  const emailSent = await sendZeptoMail(context.env, lead, receivedAt);
   const url = context.env && context.env.LEAD_WEBHOOK_URL;
-  if (url) {
+  const sendWebhook = async () => {
+    if (!url) return;
     try {
       await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...lead, receivedAt, site: 'xaxisoverseas.com' }),
+        signal: AbortSignal.timeout(8000),
       });
     } catch {
       // Never fail the visitor because of a webhook problem
     }
-  }
+  };
+  const [emailSent] = await Promise.all([sendZeptoMail(context.env, lead, receivedAt), sendWebhook()]);
   return json(request, { ok: true, emailSent, receivedAt });
 }

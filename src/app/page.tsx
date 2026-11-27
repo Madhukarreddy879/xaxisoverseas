@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     title: 'X-Axis Overseas — Study in UK Consultants in Hyderabad',
     description: 'UK admissions, scholarships and student visa guidance from Ameerpet, Hyderabad.',
     url: 'https://xaxisoverseas.com/',
-    images: [{ url: '/og-card.svg', width: 1200, height: 630 }],
+    images: [{ url: '/og-card.png', type: 'image/png', width: 1200, height: 630 }],
   },
 };
 
