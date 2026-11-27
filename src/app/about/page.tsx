@@ -3,14 +3,14 @@ import CtaButton from '@/components/CtaButton';
 import { siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
-  title: 'About X-Axis Overseas',
+  title: 'About Us — UK Study Consultants in Hyderabad',
   description:
     'X-Axis Overseas is a UK-first study abroad consultancy in Ameerpet, Hyderabad offering transparent, ethical counselling.',
   openGraph: {
     type: 'website',
     siteName: 'X-Axis Overseas',
     locale: 'en_IN',
-    title: 'About X-Axis Overseas',
+    title: 'About Us — UK Study Consultants in Hyderabad',
     description:
       'X-Axis Overseas is a UK-first study abroad consultancy in Ameerpet, Hyderabad offering transparent, ethical counselling.',
     url: 'https://xaxisoverseas.com/about/',
