@@ -21,12 +21,12 @@ export default function Page() {
   return (
     <>
       <section className="bg-navy py-10 text-white sm:py-14">
-        <div className="mx-auto max-w-7xl px-4">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="font-serif text-3xl font-bold sm:text-4xl">UK Universities</h1>
-          <p className="mt-3 text-white/80">Search and filter universities we work with, then check your eligibility in one click.</p>
+          <p className="mt-3 max-w-2xl text-white/80">Search and filter universities we work with, then check your eligibility in one click.</p>
         </div>
       </section>
-      <div className="mx-auto max-w-7xl px-4 py-12">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-12 lg:px-8">
         <UniversityExplorer />
       </div>
     </>

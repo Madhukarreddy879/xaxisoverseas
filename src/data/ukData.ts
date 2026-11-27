@@ -41,20 +41,20 @@ export const universities: University[] = [
 ];
 
 export const courseStreams = [
-  { title: 'Data Science & AI', blurb: 'High-demand analytics, machine learning and AI master\'s with placement-year options.' },
-  { title: 'Cyber Security & Cloud', blurb: 'NCSC-recognised programmes and strong employer links.' },
-  { title: 'MBA & International Business', blurb: 'One-year MBAs and management degrees with global exposure.' },
-  { title: 'Construction & Project Management', blurb: 'Professionally accredited routes into the UK infrastructure boom.' },
-  { title: 'Finance & FinTech', blurb: 'London-linked finance, banking and fintech pathways.' },
-  { title: 'Healthcare & Public Health', blurb: 'Public health, nursing-adjacent and health-management courses.' },
-  { title: 'Mechanical & Automotive Engineering', blurb: 'Motorsport, EV and advanced manufacturing specialisations.' },
-  { title: 'Law & LLM', blurb: 'International law, commercial law and human rights master\'s.' },
+  { title: 'Data Science & AI', query: 'Data', blurb: 'Analytics, machine learning & AI master\'s with placement options.' },
+  { title: 'Cyber Security & Cloud', query: 'Cyber', blurb: 'NCSC-recognised programmes with strong employer links.' },
+  { title: 'MBA & Business', query: 'MBA', blurb: 'One-year MBAs and global management degrees.' },
+  { title: 'Project Management', query: 'Management', blurb: 'Accredited routes into UK infrastructure & consulting.' },
+  { title: 'Finance & FinTech', query: 'Finance', blurb: 'London-linked finance, banking and fintech pathways.' },
+  { title: 'Public Health', query: 'Health', blurb: 'Public health and healthcare management courses.' },
+  { title: 'Engineering', query: 'Engineering', blurb: 'Civil, mechanical, automotive & EV specialisations.' },
+  { title: 'Law & LLM', query: 'Law', blurb: 'International, commercial and corporate law master\'s.' },
 ];
 
 export const intakes = [
-  { name: 'September', tag: 'Main intake', deadline: 'Apply Dec – Jun', detail: 'Widest course and scholarship choice. Start applications 8–10 months ahead; ideal for Russell Group universities.', pros: ['Maximum course availability', 'Most scholarships', 'Full orientation & social life'] },
-  { name: 'January', tag: 'Second intake', deadline: 'Apply Jul – Nov', detail: 'Popular with students who finish their degree mid-year. Many universities offer MOI-friendly admission.', pros: ['Quicker admission turnaround', 'Smaller classes', 'Flexible for graduating students'] },
-  { name: 'May', tag: 'Spring intake', deadline: 'Apply Jan – Mar', detail: 'Limited to selected universities and courses, great backup if you missed January.', pros: ['Backup option', 'Fast processing', 'Selected career-focused universities'] },
+  { name: 'September', tag: 'Main Intake • Most Popular', featured: true, deadline: 'Apply Dec – Jun', detail: 'Widest course and scholarship choice across Russell Group and modern universities.', pros: ['Maximum course availability', 'Highest scholarship pools', 'Full campus orientation'] },
+  { name: 'January', tag: 'Secondary Intake', featured: false, deadline: 'Apply Jul – Nov', detail: 'Ideal for mid-year graduates with wide MOI-friendly and fast-track options.', pros: ['Quicker offer turnaround', 'Smaller class sizes', 'Flexible for fresh graduates'] },
+  { name: 'May', tag: 'Spring Intake', featured: false, deadline: 'Apply Jan – Mar', detail: 'Select career-focused universities and programmes if you missed January.', pros: ['Fast admission window', 'Selected business & IT courses', 'Strong backup intake'] },
 ];
 
 export const services = [
@@ -69,19 +69,19 @@ export const services = [
 ];
 
 export const processSteps = [
-  { title: 'Free counselling', desc: 'Meet us at our Ameerpet office or online to discuss your goals.' },
-  { title: 'Profile & shortlist', desc: 'We evaluate your profile and shortlist suitable courses and universities.' },
-  { title: 'Apply & offer', desc: 'We prepare documents, submit applications and track your offers.' },
-  { title: 'Funds & CAS', desc: 'Accept the offer, pay the deposit, clear Pre-CAS checks and receive your CAS.' },
-  { title: 'Visa filing', desc: 'Complete the UK student visa application and attend biometrics.' },
-  { title: 'Fly & settle', desc: 'Pre-departure briefing, accommodation and arrival support.' },
+  { title: 'Free Counselling', desc: 'Meet us at our Ameerpet office or online to discuss your goals.' },
+  { title: 'Profile & Shortlist', desc: 'We evaluate your profile and shortlist suitable UK universities.' },
+  { title: 'Apply & Offer', desc: 'We prepare SOP/LORs, submit applications and track offers.' },
+  { title: 'Funds & CAS', desc: 'Pay tuition deposit, clear Pre-CAS checks and receive your CAS.' },
+  { title: 'Visa Filing', desc: 'Complete the UK student visa application and VFS biometrics.' },
+  { title: 'Fly & Settle', desc: 'Pre-departure briefing, accommodation and UK arrival support.' },
 ];
 
 export const trustHighlights = [
-  { title: '100% UK-Focused Counsellors', desc: 'We specialize solely in the UK—keeping up with current university entry rules, MOI policies, and UKVI fund guidelines.' },
-  { title: 'Transparent Fee & Loan Planning', desc: 'Clear GBP-to-INR cost breakdowns, scholarship checks, and bank education loan guidance before you commit.' },
-  { title: 'Dedicated Pre-CAS Mock Prep', desc: 'One-on-one credibility interview coaching so you answer course, university, and career questions confidently.' },
-  { title: 'Walk-In Ameerpet Support', desc: 'Meet our team face-to-face at KVR Enclave, beside AAA Theatre—just a short walk from Ameerpet Metro.' },
+  { icon: 'compass', title: 'UK-Only Counsellors', desc: 'Dedicated solely to the UK—current on entry criteria, MOI waivers and UKVI rules.' },
+  { icon: 'calculator', title: 'Clear Fee & Loan Plan', desc: 'Honest GBP-to-INR budgets, scholarship checks and bank loan guidance upfront.' },
+  { icon: 'shield', title: 'Pre-CAS Mock Prep', desc: 'One-on-one credibility interview practice so you answer university calls confidently.' },
+  { icon: 'map', title: 'Walk-In Ameerpet Office', desc: 'Meet our team in person at KVR Enclave—2 mins from Ameerpet Metro Station.' },
 ];
 
 export const faqs = [

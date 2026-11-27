@@ -24,12 +24,12 @@ export default function Page() {
   return (
     <>
       <section className="bg-navy py-10 text-white sm:py-14">
-        <div className="mx-auto max-w-5xl px-4">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="font-serif text-3xl font-bold sm:text-4xl">Contact Us</h1>
-          <p className="mt-3 text-white/80">Book free counselling or walk in to our Ameerpet office.</p>
+          <p className="mt-3 max-w-2xl text-white/80">Book free counselling or walk in to our Ameerpet office.</p>
         </div>
       </section>
-      <div className="mx-auto grid max-w-5xl gap-10 px-4 py-10 sm:py-14 lg:grid-cols-2">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-2 lg:gap-10 lg:px-8">
         <div className="rounded-2xl border border-slate-200 p-6 shadow-sm">
           <h2 className="mb-4 text-xl font-bold text-navy">Book Free UK Counselling</h2>
           <LeadCaptureForm variant="full" prefill={{ source: 'contact-page' }} />
@@ -44,7 +44,7 @@ export default function Page() {
           <a href={siteConfig.googleMapsDirectionsUrl} target="_blank" rel="noopener noreferrer" className="inline-block text-sm font-semibold text-crimson hover:underline">Open in Google Maps →</a>
         </div>
       </div>
-      <div className="mx-auto max-w-5xl px-4 pb-14"><MapEmbed tall /></div>
+      <div className="mx-auto max-w-7xl px-4 pb-14 sm:px-6 lg:px-8"><MapEmbed tall /></div>
     </>
   );
 }

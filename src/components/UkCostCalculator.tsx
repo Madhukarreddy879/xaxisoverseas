@@ -1,6 +1,6 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useId, useMemo, useState } from 'react';
 import { useCounselling } from './CounsellingContext';
 
 const GBP_INR = 110; // indicative rate
@@ -11,10 +11,10 @@ const tuitionBands = {
   russell: { label: 'Russell Group universities', master: 28500, bachelor: 27000 },
 } as const;
 
-const scoreWaiver = [0, 0.1, 0.2, 0.3]; // fraction of... capped below
+const scoreWaiver = [0, 0.1, 0.2, 0.3];
 
 const sel =
-  'min-h-[48px] w-full rounded-lg border border-slate-400 bg-white px-3 py-2.5 text-base focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20';
+  'custom-select mt-1.5 h-12 w-full rounded-xl border border-slate-300 bg-white px-3.5 text-base font-normal text-slate-900 focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/15';
 
 export default function UkCostCalculator() {
   const [location, setLocation] = useState<'london' | 'outside'>('outside');
@@ -22,6 +22,7 @@ export default function UkCostCalculator() {
   const [band, setBand] = useState<keyof typeof tuitionBands>('modern');
   const [score, setScore] = useState(1);
   const { openModal } = useCounselling();
+  const uid = useId();
 
   const r = useMemo(() => {
     const tuition = tuitionBands[band][level];
@@ -35,33 +36,59 @@ export default function UkCostCalculator() {
   const lakh = (n: number) => `₹${((n * GBP_INR) / 100000).toFixed(1)} Lakhs`;
 
   return (
-    <div className="grid gap-8 rounded-2xl bg-white p-6 shadow-lg md:grid-cols-2 md:p-8">
+    <div className="grid items-stretch gap-6 rounded-2xl border border-slate-200 bg-white p-5 shadow-lg sm:p-8 md:grid-cols-2 md:gap-8">
       <div className="space-y-4">
-        <label className="block text-sm font-semibold text-navy">
+        <label htmlFor={`${uid}-loc`} className="block text-sm font-semibold text-navy">
           Study location
-          <select value={location} onChange={(e) => setLocation(e.target.value as 'london' | 'outside')} className={`${sel} mt-1`}>
-            <option value="outside">Outside London (Manchester, Coventry, Leeds…)</option>
+          <select
+            id={`${uid}-loc`}
+            name="location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value as 'london' | 'outside')}
+            className={sel}
+          >
+            <option value="outside">Outside London (Manchester, Leeds…)</option>
             <option value="london">London</option>
           </select>
         </label>
-        <label className="block text-sm font-semibold text-navy">
+        <label htmlFor={`${uid}-lvl`} className="block text-sm font-semibold text-navy">
           Programme
-          <select value={level} onChange={(e) => setLevel(e.target.value as 'master' | 'bachelor')} className={`${sel} mt-1`}>
+          <select
+            id={`${uid}-lvl`}
+            name="level"
+            value={level}
+            onChange={(e) => setLevel(e.target.value as 'master' | 'bachelor')}
+            className={sel}
+          >
             <option value="master">1-year Master&apos;s</option>
             <option value="bachelor">Bachelor&apos;s (first year)</option>
           </select>
         </label>
-        <label className="block text-sm font-semibold text-navy">
+        <label htmlFor={`${uid}-band`} className="block text-sm font-semibold text-navy">
           University band
-          <select value={band} onChange={(e) => setBand(e.target.value as keyof typeof tuitionBands)} className={`${sel} mt-1`}>
+          <select
+            id={`${uid}-band`}
+            name="band"
+            value={band}
+            onChange={(e) => setBand(e.target.value as keyof typeof tuitionBands)}
+            className={sel}
+          >
             {Object.entries(tuitionBands).map(([k, v]) => (
-              <option key={k} value={k}>{v.label}</option>
+              <option key={k} value={k}>
+                {v.label}
+              </option>
             ))}
           </select>
         </label>
-        <label className="block text-sm font-semibold text-navy">
+        <label htmlFor={`${uid}-score`} className="block text-sm font-semibold text-navy">
           Academic score
-          <select value={score} onChange={(e) => setScore(Number(e.target.value))} className={`${sel} mt-1`}>
+          <select
+            id={`${uid}-score`}
+            name="score"
+            value={score}
+            onChange={(e) => setScore(Number(e.target.value))}
+            className={sel}
+          >
             <option value={0}>Below 60%</option>
             <option value={1}>60 – 70%</option>
             <option value={2}>70 – 80%</option>
@@ -69,29 +96,52 @@ export default function UkCostCalculator() {
           </select>
         </label>
       </div>
-      <div className="rounded-xl bg-navy p-6 text-white">
-        <h3 className="text-lg font-bold">Estimated first-year budget</h3>
-        <dl className="mt-4 space-y-3 text-sm">
-          <div className="flex justify-between"><dt>Tuition fee</dt><dd className="font-semibold">{gbp(r.tuition)}</dd></div>
-          <div className="flex justify-between"><dt>UKVI living funds (9 months)</dt><dd className="font-semibold">{gbp(r.living)}</dd></div>
-          <div className="flex justify-between text-green-300"><dt>Potential scholarship</dt><dd className="font-semibold">− {gbp(r.scholarship)}</dd></div>
-          <div className="flex justify-between border-t border-white/20 pt-3 text-base"><dt className="font-bold">Net estimate</dt><dd className="font-bold text-gold">{gbp(r.total)}</dd></div>
-          <div className="text-right text-lg font-bold">≈ {lakh(r.total)}</div>
-        </dl>
-        <p className="mt-3 text-xs text-white/60">Indicative only (£1 ≈ ₹{GBP_INR}). Actual fees, scholarships and living-cost rules vary by university and year.</p>
-        <button
-          type="button"
-          onClick={() =>
-            openModal({
-              target: `${level === 'master' ? "1-Yr Master's" : "Bachelor's"} (${location === 'london' ? 'London' : 'Outside London'})`,
-              notes: `Band: ${tuitionBands[band].label}, Est: ${gbp(r.total)}`,
-              source: 'cost-calculator',
-            })
-          }
-          className="mt-5 w-full rounded-lg bg-crimson px-4 py-3 font-semibold hover:bg-crimson-dark"
-        >
-          Get an exact fee &amp; scholarship sheet
-        </button>
+
+      <div className="flex h-full flex-col justify-between rounded-xl bg-navy p-5 text-white sm:p-7">
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-wider text-gold">Indicative 1st-Year Estimate</p>
+          <h3 className="mt-1 text-xl font-bold">Estimated First-Year Budget</h3>
+          <dl className="mt-5 space-y-3 text-sm">
+            <div className="flex justify-between gap-4">
+              <dt className="text-white/80">Tuition fee</dt>
+              <dd className="font-semibold">{gbp(r.tuition)}</dd>
+            </div>
+            <div className="flex justify-between gap-4">
+              <dt className="text-white/80">UKVI living funds (9 months)</dt>
+              <dd className="font-semibold">{gbp(r.living)}</dd>
+            </div>
+            <div className="flex justify-between gap-4 text-emerald-300">
+              <dt>Potential scholarship</dt>
+              <dd className="font-semibold">− {gbp(r.scholarship)}</dd>
+            </div>
+            <div className="flex items-baseline justify-between gap-4 border-t border-white/15 pt-4">
+              <dt className="text-base font-bold">Net estimate</dt>
+              <dd className="text-right">
+                <span className="block text-2xl font-extrabold text-gold">{gbp(r.total)}</span>
+                <span className="text-sm font-semibold text-white/90">≈ {lakh(r.total)}</span>
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        <div className="mt-6">
+          <p className="text-xs leading-relaxed text-white/60">
+            Indicative only (£1 ≈ ₹{GBP_INR}). Actual fees, scholarships and UKVI living-cost rules vary by university and year.
+          </p>
+          <button
+            type="button"
+            onClick={() =>
+              openModal({
+                target: `${level === 'master' ? "1-Yr Master's" : "Bachelor's"} (${location === 'london' ? 'London' : 'Outside London'})`,
+                notes: `Band: ${tuitionBands[band].label}, Est: ${gbp(r.total)}`,
+                source: 'cost-calculator',
+              })
+            }
+            className="mt-4 min-h-[48px] w-full rounded-xl bg-crimson px-4 py-3 font-semibold text-white transition hover:bg-crimson-dark"
+          >
+            Get an Exact Fee &amp; Scholarship Sheet
+          </button>
+        </div>
       </div>
     </div>
   );

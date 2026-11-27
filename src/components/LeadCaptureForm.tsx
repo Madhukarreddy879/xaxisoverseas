@@ -16,23 +16,23 @@ export interface Prefill {
 }
 
 const field =
-  'w-full min-h-[48px] rounded-lg border border-slate-400 bg-white px-3 py-2.5 text-base text-slate-900 focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/20';
+  'h-12 w-full rounded-xl border border-slate-300 bg-white px-3.5 text-base text-slate-900 placeholder:text-slate-400 focus:border-navy focus:outline-none focus:ring-2 focus:ring-navy/15';
+
+const selectField = `${field} custom-select`;
 
 export default function LeadCaptureForm({
   variant = 'full',
   prefill,
-  autoFocusFirst = false,
 }: {
   variant?: 'compact' | 'full';
   prefill?: Prefill;
-  autoFocusFirst?: boolean;
 }) {
   const [done, setDone] = useState(false);
   const [error, setError] = useState('');
   const [deliveryFallback, setDeliveryFallback] = useState(false);
   const [summary, setSummary] = useState('');
   const phoneRef = useRef<HTMLInputElement>(null);
-  const errorId = useId();
+  const uid = useId();
   const full = variant === 'full';
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -94,13 +94,13 @@ export default function LeadCaptureForm({
             href={buildWhatsAppUrl(summary)}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg bg-green-600 px-4 py-3 font-semibold text-white hover:bg-green-700"
+            className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl bg-green-600 px-4 py-3 font-semibold text-white hover:bg-green-700"
           >
             <MessageCircle aria-hidden="true" className="h-5 w-5" /> Send Details on WhatsApp
           </a>
           <a
             href={`tel:${siteConfig.phoneRaw}`}
-            className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-lg border border-navy px-4 py-3 font-semibold text-navy hover:bg-navy hover:text-white"
+            className="inline-flex min-h-[48px] items-center justify-center gap-2 rounded-xl border border-navy px-4 py-3 font-semibold text-navy hover:bg-navy hover:text-white"
           >
             <Phone aria-hidden="true" className="h-5 w-5" /> Call Ameerpet Office
           </a>
@@ -111,38 +111,44 @@ export default function LeadCaptureForm({
 
   return (
     <form action="/api/lead" method="POST" onSubmit={onSubmit} className="space-y-3">
-      <input name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+      <input id={`${uid}-hp`} name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
       {prefill?.notes && <input type="hidden" name="notes" value={prefill.notes} />}
       {!full && prefill?.qualification && <input type="hidden" name="qualification" value={prefill.qualification} />}
       {!full && prefill?.english && <input type="hidden" name="english" value={prefill.english} />}
       {!full && prefill?.target && <input type="hidden" name="target" value={prefill.target} />}
-      <input
-        name="name"
-        required
-        autoFocus={autoFocusFirst}
-        autoComplete="name"
-        enterKeyHint="next"
-        placeholder="Full name *"
-        className={field}
-        aria-label="Full name"
-      />
-      <input
-        ref={phoneRef}
-        name="phone"
-        required
-        type="tel"
-        inputMode="tel"
-        autoComplete="tel"
-        enterKeyHint="next"
-        aria-invalid={Boolean(error)}
-        aria-describedby={error ? errorId : undefined}
-        onChange={() => error && setError('')}
-        placeholder="Mobile / WhatsApp number *"
-        className={field}
-        aria-label="Mobile number"
-      />
+
+      <div className={full ? 'grid gap-3 sm:grid-cols-2' : 'space-y-3'}>
+        <input
+          id={`${uid}-name`}
+          name="name"
+          required
+          autoComplete="name"
+          enterKeyHint="next"
+          placeholder="Full name *"
+          className={field}
+          aria-label="Full name"
+        />
+        <input
+          ref={phoneRef}
+          id={`${uid}-phone`}
+          name="phone"
+          required
+          type="tel"
+          inputMode="tel"
+          autoComplete="tel"
+          enterKeyHint="next"
+          aria-invalid={Boolean(error)}
+          aria-describedby={error ? `${uid}-err` : undefined}
+          onChange={() => error && setError('')}
+          placeholder="Mobile / WhatsApp *"
+          className={field}
+          aria-label="Mobile number"
+        />
+      </div>
+
       {full && (
         <input
+          id={`${uid}-email`}
           name="email"
           type="email"
           autoComplete="email"
@@ -155,44 +161,71 @@ export default function LeadCaptureForm({
           aria-label="Email"
         />
       )}
-      <select name="intake" defaultValue={prefill?.intake || ''} className={field} aria-label="Preferred intake">
-        <option value="">Preferred UK intake</option>
-        <option>September</option>
-        <option>January</option>
-        <option>May</option>
-      </select>
-      {full && (
-        <>
-          <select name="qualification" defaultValue={prefill?.qualification || ''} className={field} aria-label="Qualification">
+
+      <div className={full ? 'grid gap-3 sm:grid-cols-2' : undefined}>
+        <select
+          id={`${uid}-intake`}
+          name="intake"
+          defaultValue={prefill?.intake || ''}
+          className={selectField}
+          aria-label="Preferred intake"
+        >
+          <option value="">Preferred UK intake</option>
+          <option>September</option>
+          <option>January</option>
+          <option>May</option>
+        </select>
+
+        {full && (
+          <select
+            id={`${uid}-qual`}
+            name="qualification"
+            defaultValue={prefill?.qualification || ''}
+            className={selectField}
+            aria-label="Qualification"
+          >
             <option value="">Current qualification</option>
             <option>12th / Intermediate</option>
             <option>Bachelor&apos;s / B.Tech / Degree</option>
             <option>Master&apos;s</option>
           </select>
-          <select name="english" defaultValue={prefill?.english || ''} className={field} aria-label="English test status">
+        )}
+      </div>
+
+      {full && (
+        <div className="grid gap-3 sm:grid-cols-2">
+          <select
+            id={`${uid}-eng`}
+            name="english"
+            defaultValue={prefill?.english || ''}
+            className={selectField}
+            aria-label="English test status"
+          >
             <option value="">English test status</option>
             <option>MOI / Without IELTS</option>
             <option>IELTS / PTE taken</option>
             <option>Planning to take</option>
           </select>
           <input
+            id={`${uid}-target`}
             name="target"
             defaultValue={prefill?.target || [prefill?.university, prefill?.course].filter(Boolean).join(' - ')}
             enterKeyHint="done"
-            placeholder="Target university / course (optional)"
+            placeholder="Target university / course"
             className={field}
             aria-label="Target university or course"
           />
-        </>
+        </div>
       )}
+
       {error && (
-        <p id={errorId} role="alert" className="text-sm font-medium text-crimson">
+        <p id={`${uid}-err`} role="alert" className="text-sm font-medium text-crimson">
           {error}
         </p>
       )}
       <button
         type="submit"
-        className="min-h-[48px] w-full rounded-lg bg-crimson px-4 py-3 font-semibold text-white transition hover:bg-crimson-dark"
+        className="min-h-[48px] w-full rounded-xl bg-crimson px-4 py-3 font-semibold text-white shadow-sm transition hover:bg-crimson-dark"
       >
         Book Free UK Counselling
       </button>

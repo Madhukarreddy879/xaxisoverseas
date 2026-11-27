@@ -35,7 +35,9 @@ export function CounsellingProvider({ children }: { children: React.ReactNode })
     if (!dialog) return;
     if (open && !dialog.open) {
       dialog.showModal();
-      dialog.querySelector<HTMLElement>('[autofocus]')?.focus();
+      requestAnimationFrame(() => {
+        dialog.querySelector<HTMLElement>('input[name="name"]')?.focus();
+      });
     } else if (!open && dialog.open) {
       dialog.close();
     }
@@ -86,26 +88,32 @@ export function CounsellingProvider({ children }: { children: React.ReactNode })
         ref={dialogRef}
         aria-labelledby={open ? 'counselling-modal-title' : undefined}
         {...({ closedby: 'any' } as Record<string, string>)}
-        className="m-auto max-h-[90dvh] w-[calc(100%-1.5rem)] max-w-md overflow-y-auto rounded-2xl bg-white p-0 text-slate-900 shadow-2xl"
+        className="m-auto max-h-[90dvh] w-[calc(100%-1.5rem)] max-w-lg overflow-y-auto rounded-2xl bg-white p-0 text-slate-900 shadow-2xl"
       >
         {open && (
-          <div className="relative p-6">
-            <button
-              type="button"
-              onClick={closeModal}
-              aria-label="Close"
-              className="absolute right-3 top-3 rounded-full p-2 text-slate-500 hover:bg-slate-100"
-            >
-              <X className="h-5 w-5" />
-            </button>
-            <h1 id="counselling-modal-title" className="pr-10 text-xl font-bold text-navy">
-              Book Free UK Counselling
-            </h1>
-            {prefill?.university && (
-              <p className="mt-1 text-sm text-slate-600">Interested in: {prefill.university}</p>
-            )}
+          <div className="p-5 sm:p-6">
+            <div className="flex items-start justify-between gap-4 border-b border-slate-100 pb-4">
+              <div>
+                <h1 id="counselling-modal-title" className="text-xl font-bold text-navy">
+                  Book Free UK Counselling
+                </h1>
+                <p className="mt-0.5 text-sm text-slate-600">
+                  {prefill?.university
+                    ? `Interested in ${prefill.university} — get a free eligibility & scholarship check.`
+                    : 'Free 1-on-1 profile review with our Hyderabad UK counsellors.'}
+                </p>
+              </div>
+              <button
+                type="button"
+                onClick={closeModal}
+                aria-label="Close"
+                className="-mr-1 -mt-1 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-slate-500 transition hover:bg-slate-100 hover:text-navy"
+              >
+                <X aria-hidden="true" className="h-5 w-5" />
+              </button>
+            </div>
             <div className="mt-4">
-              <LeadCaptureForm key={key} variant="full" prefill={prefill} autoFocusFirst />
+              <LeadCaptureForm key={key} variant="full" prefill={prefill} />
             </div>
           </div>
         )}

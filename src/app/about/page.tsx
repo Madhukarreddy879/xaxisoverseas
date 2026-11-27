@@ -29,12 +29,12 @@ export default function Page() {
   return (
     <>
       <section className="bg-navy py-10 text-white sm:py-14">
-        <div className="mx-auto max-w-4xl px-4">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <h1 className="font-serif text-3xl font-bold sm:text-4xl">About X-Axis Overseas</h1>
-          <p className="mt-3 text-white/80">A UK-first consultancy built for students from Hyderabad and the Telugu states.</p>
+          <p className="mt-3 max-w-2xl text-white/80">A UK-first consultancy built for students from Hyderabad and the Telugu states.</p>
         </div>
       </section>
-      <div className="mx-auto max-w-4xl px-4 py-14">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
         <p className="text-lg leading-relaxed text-slate-700">
           X-Axis is an overseas education consultancy based in Ameerpet, Hyderabad. We focus on one destination — the United Kingdom — so our counsellors know the universities, intakes, scholarships and UKVI rules in depth. Our goal is simple: help every student make a well-informed choice and reach the UK with confidence.
         </p>
