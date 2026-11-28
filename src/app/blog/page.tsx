@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowRight, Calendar, Clock } from 'lucide-react';
 import { blogPosts } from '@/data/blogPosts';
+import { siteConfig } from '@/config/site';
 import CtaButton from '@/components/CtaButton';
 
 export const metadata: Metadata = {
@@ -21,14 +22,47 @@ export const metadata: Metadata = {
 };
 
 export default function BlogIndexPage() {
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        name: 'UK Study Abroad Blog & Visa Guides',
+        url: `${siteConfig.siteUrl}/blog/`,
+        description:
+          'In-depth UK university admissions, MOI waivers, UKVI maintenance funds, Pre-CAS interview prep, scholarships, and 2027 Graduate Route PSW guides.',
+        mainEntity: {
+          '@type': 'ItemList',
+          itemListElement: blogPosts.map((post, index) => ({
+            '@type': 'ListItem',
+            position: index + 1,
+            url: `${siteConfig.siteUrl}/blog/${post.slug}/`,
+            name: post.title,
+          })),
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${siteConfig.siteUrl}/` },
+          { '@type': 'ListItem', position: 2, name: 'Blog', item: `${siteConfig.siteUrl}/blog/` },
+        ],
+      },
+    ],
+  };
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, '\\u003c') }}
+      />
       <section className="bg-navy py-10 text-white sm:py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <p className="text-xs font-bold uppercase tracking-widest text-gold">UK Study Insights • Updated Nov 2026</p>
           <h1 className="mt-1.5 font-serif text-3xl font-bold sm:text-4xl">UK Study Abroad Blog &amp; Visa Guides</h1>
           <p className="mt-3 max-w-2xl text-white/80">
-            Practical, up-to-date guides on UK Spring 2027 intakes, MOI waivers, new UKVI financial rules, and VFS Hyderabad visa steps.
+            In-depth guides for Hyderabad &amp; Indian students covering UK March/May &amp; September 2027 intakes, MOI waivers, backlogs and study gaps, Pre-CAS interview Q&amp;As, scholarships, updated UKVI funds, VFS Hyderabad steps, and 2027 Graduate Route PSW rules.
           </p>
         </div>
       </section>
@@ -55,13 +89,14 @@ export default function BlogIndexPage() {
               <p className="mt-2 text-sm leading-relaxed text-slate-600">{post.description}</p>
               <div className="mt-auto flex items-center justify-between pt-5 text-sm">
                 <span className="inline-flex items-center gap-1.5 text-xs text-slate-500">
-                  <Calendar aria-hidden="true" className="h-3.5 w-3.5" /> Updated {post.updatedAt}
+                  <Calendar aria-hidden="true" className="h-3.5 w-3.5" />
+                  <time dateTime={post.updatedAt}>Updated {post.updatedAt}</time>
                 </span>
                 <Link
                   href={`/blog/${post.slug}/`}
                   className="inline-flex items-center gap-1 font-semibold text-crimson hover:underline"
                 >
-                  Read guide <ArrowRight aria-hidden="true" className="h-4 w-4" />
+                  Read guide<span className="sr-only">: {post.title}</span> <ArrowRight aria-hidden="true" className="h-4 w-4" />
                 </Link>
               </div>
             </article>

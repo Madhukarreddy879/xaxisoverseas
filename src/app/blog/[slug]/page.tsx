@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { Fragment } from 'react';
 import { ArrowLeft, ArrowRight, Calendar, CheckCircle2, Clock, MapPin, MessageCircle } from 'lucide-react';
-import { blogPosts, getBlogPost } from '@/data/blogPosts';
+import { blogPosts, getBlogPost, getPostWordCount } from '@/data/blogPosts';
 import { buildWhatsAppUrl, siteConfig } from '@/config/site';
 import FaqAccordion from '@/components/FaqAccordion';
 import LeadCaptureForm from '@/components/LeadCaptureForm';
@@ -11,6 +12,50 @@ export const dynamicParams = false;
 
 export function generateStaticParams() {
   return blogPosts.map((p) => ({ slug: p.slug }));
+}
+
+function renderRichText(text: string) {
+  const linkRe = /\[([^\]]+)\]\(((?:\/|https:\/\/)[^)]+)\)/g;
+  const nodes: React.ReactNode[] = [];
+  let lastIdx = 0;
+  let match: RegExpExecArray | null;
+  let keyIdx = 0;
+
+  while ((match = linkRe.exec(text)) !== null) {
+    if (match.index > lastIdx) {
+      nodes.push(<Fragment key={`t-${keyIdx++}`}>{text.slice(lastIdx, match.index)}</Fragment>);
+    }
+    const [, label, href] = match;
+    if (href.startsWith('/')) {
+      nodes.push(
+        <Link
+          key={`l-${keyIdx++}`}
+          href={href}
+          className="font-semibold text-navy underline decoration-crimson/50 underline-offset-2 hover:text-crimson hover:decoration-crimson"
+        >
+          {label}
+        </Link>
+      );
+    } else {
+      nodes.push(
+        <a
+          key={`e-${keyIdx++}`}
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold text-navy underline decoration-navy/40 underline-offset-2 hover:text-crimson"
+        >
+          {label}
+        </a>
+      );
+    }
+    lastIdx = match.index + match[0].length;
+  }
+
+  if (lastIdx < text.length) {
+    nodes.push(<Fragment key={`t-${keyIdx++}`}>{text.slice(lastIdx)}</Fragment>);
+  }
+  return nodes;
 }
 
 export async function generateMetadata({
@@ -33,8 +78,8 @@ export async function generateMetadata({
       title: post.seoTitle,
       description: post.description,
       url,
-      publishedTime: post.publishedAt,
-      modifiedTime: post.updatedAt,
+      publishedTime: `${post.publishedAt}T09:00:00+05:30`,
+      modifiedTime: `${post.updatedAt}T09:00:00+05:30`,
       images: [{ url: '/og-card.png', type: 'image/png', width: 1200, height: 630 }],
     },
   };
@@ -50,6 +95,7 @@ export default async function BlogPostPage({
   if (!post) notFound();
 
   const canonical = `${siteConfig.siteUrl}/blog/${post.slug}/`;
+  const wordCount = getPostWordCount(post);
   const related = post.relatedSlugs
     .map((s) => getBlogPost(s))
     .filter((p): p is NonNullable<typeof p> => Boolean(p));
@@ -61,8 +107,11 @@ export default async function BlogPostPage({
         '@type': 'BlogPosting',
         headline: post.title,
         description: post.description,
-        datePublished: post.publishedAt,
-        dateModified: post.updatedAt,
+        articleSection: post.category,
+        inLanguage: 'en-IN',
+        wordCount,
+        datePublished: `${post.publishedAt}T09:00:00+05:30`,
+        dateModified: `${post.updatedAt}T09:00:00+05:30`,
         mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
         image: `${siteConfig.siteUrl}/og-card.png`,
         author: { '@type': 'Organization', name: siteConfig.legalName, url: siteConfig.siteUrl },
@@ -111,7 +160,8 @@ export default async function BlogPostPage({
           <div className="mb-3 flex flex-wrap items-center gap-2 text-xs">
             <span className="rounded-full bg-crimson px-2.5 py-0.5 font-semibold text-white">{post.intakeTag}</span>
             <span className="inline-flex items-center gap-1 text-white/80">
-              <Calendar aria-hidden="true" className="h-3.5 w-3.5" /> Updated {post.updatedAt}
+              <Calendar aria-hidden="true" className="h-3.5 w-3.5" />
+              <time dateTime={post.updatedAt}>Updated {post.updatedAt}</time>
             </span>
             <span className="inline-flex items-center gap-1 text-white/80">
               <Clock aria-hidden="true" className="h-3.5 w-3.5" /> {post.readTime}
@@ -123,14 +173,14 @@ export default async function BlogPostPage({
       </section>
 
       <article className="mx-auto max-w-4xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
-        <div className="grid gap-3 rounded-2xl border border-slate-200 bg-ivory p-5 sm:grid-cols-2 lg:grid-cols-4">
+        <dl className="grid gap-3 rounded-2xl border border-slate-200 bg-ivory p-5 sm:grid-cols-2 lg:grid-cols-4">
           {post.quickFacts.map((fact) => (
             <div key={fact.label}>
-              <p className="text-[11px] font-bold uppercase tracking-wider text-crimson">{fact.label}</p>
-              <p className="mt-1 text-sm font-semibold text-navy">{fact.value}</p>
+              <dt className="text-[11px] font-bold uppercase tracking-wider text-crimson">{fact.label}</dt>
+              <dd className="mt-1 text-sm font-semibold text-navy">{fact.value}</dd>
             </div>
           ))}
-        </div>
+        </dl>
 
         <div className="mt-10 space-y-10">
           {post.sections.map((sec, idx) => (
@@ -139,18 +189,46 @@ export default async function BlogPostPage({
                 <h2 className="font-serif text-2xl font-bold text-navy">{sec.heading}</h2>
                 <div className="mt-3 space-y-4 text-[15px] leading-relaxed text-slate-700 sm:text-base">
                   {sec.paragraphs.map((p) => (
-                    <p key={p}>{p}</p>
+                    <p key={p}>{renderRichText(p)}</p>
                   ))}
                 </div>
-                {sec.bullets && (
-                  <ul className="mt-4 space-y-2.5 text-[15px] text-slate-700">
+                {sec.bullets && sec.ordered && (
+                  <ol className="mt-4 space-y-3 text-[15px] leading-relaxed text-slate-700">
+                    {sec.bullets.map((b, bi) => (
+                      <li key={b} className="flex items-start gap-3">
+                        <span
+                          aria-hidden="true"
+                          className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-crimson/10 text-xs font-bold text-crimson"
+                        >
+                          {bi + 1}
+                        </span>
+                        <span>{renderRichText(b)}</span>
+                      </li>
+                    ))}
+                  </ol>
+                )}
+                {sec.bullets && !sec.ordered && (
+                  <ul className="mt-4 space-y-2.5 text-[15px] leading-relaxed text-slate-700">
                     {sec.bullets.map((b) => (
                       <li key={b} className="flex items-start gap-2.5">
                         <CheckCircle2 aria-hidden="true" className="mt-1 h-4 w-4 shrink-0 text-crimson" />
-                        <span>{b}</span>
+                        <span>{renderRichText(b)}</span>
                       </li>
                     ))}
                   </ul>
+                )}
+                {sec.qaList && (
+                  <ol className="mt-5 space-y-4">
+                    {sec.qaList.map((item) => (
+                      <li key={item.q} className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+                        <h3 className="text-[15px] font-bold text-navy sm:text-base">{item.q}</h3>
+                        <p className="mt-1.5 text-sm leading-relaxed text-slate-700">
+                          <span className="font-semibold text-crimson">How to answer: </span>
+                          {renderRichText(item.answer)}
+                        </p>
+                      </li>
+                    ))}
+                  </ol>
                 )}
                 {sec.table && (
                   <div
@@ -175,14 +253,17 @@ export default async function BlogPostPage({
                       <tbody className="divide-y divide-slate-200 bg-white">
                         {sec.table.rows.map((row) => (
                           <tr key={row[0]} className="hover:bg-slate-50">
-                            {row.map((cell, ci) => (
-                              <td
-                                key={`${row[0]}-${ci}`}
-                                className={`px-4 py-3 ${ci === 0 ? 'font-semibold text-navy' : 'text-slate-700'}`}
-                              >
-                                {cell}
-                              </td>
-                            ))}
+                            {row.map((cell, ci) =>
+                              ci === 0 ? (
+                                <th key={`${row[0]}-0`} scope="row" className="px-4 py-3 font-semibold text-navy">
+                                  {cell}
+                                </th>
+                              ) : (
+                                <td key={`${row[0]}-${ci}`} className="px-4 py-3 text-slate-700">
+                                  {cell}
+                                </td>
+                              )
+                            )}
                           </tr>
                         ))}
                       </tbody>
@@ -218,7 +299,7 @@ export default async function BlogPostPage({
         </section>
 
         <p className="mt-8 rounded-xl bg-slate-50 p-4 text-xs leading-relaxed text-slate-600">
-          <strong>Accuracy Note:</strong> UKVI rules, maintenance fund thresholds, and university MOI criteria change periodically. Figures above reflect official GOV.UK updates as of November 2026—always confirm current policies on{' '}
+          <strong>Accuracy Note:</strong> UKVI rules, visa/IHS fees, maintenance thresholds, and university MOI criteria change periodically. Figures above reflect official GOV.UK updates as of November 2026—always confirm current policies on{' '}
           <a href="https://www.gov.uk/student-visa" target="_blank" rel="noopener noreferrer" className="font-semibold text-navy underline">
             gov.uk/student-visa
           </a>{' '}
