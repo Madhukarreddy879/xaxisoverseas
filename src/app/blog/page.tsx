@@ -7,14 +7,14 @@ import CtaButton from '@/components/CtaButton';
 export const metadata: Metadata = {
   title: 'UK Study Abroad Blog & Visa Guides',
   description:
-    'Up-to-date UK study abroad guides from X-Axis Overseas Hyderabad: March & May 2027 intakes, JNTUH/OU MOI waivers, 30 Nov 2026 UKVI 28-day funds & VFS Hyderabad.',
+    'Up-to-date UK study abroad guides from X-Axis Overseas Hyderabad: March/May 2027 intakes, MOI waivers, new UKVI funds, Pre-CAS Q&As, backlogs, scholarships & PSW.',
   openGraph: {
     type: 'website',
     siteName: 'X-Axis Overseas',
     locale: 'en_IN',
     title: 'UK Study Abroad Blog & Visa Guides',
     description:
-      'Up-to-date UK study abroad guides from X-Axis Overseas Hyderabad: March & May 2027 intakes, JNTUH/OU MOI waivers, 30 Nov 2026 UKVI 28-day funds & VFS Hyderabad.',
+      'Up-to-date UK study abroad guides from X-Axis Overseas Hyderabad: March/May 2027 intakes, MOI waivers, new UKVI funds, Pre-CAS Q&As, backlogs, scholarships & PSW.',
     url: 'https://xaxisoverseas.com/blog/',
     images: [{ url: '/og-card.png', type: 'image/png', width: 1200, height: 630 }],
   },

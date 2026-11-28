@@ -16,7 +16,7 @@ export interface BlogPost {
   title: string;
   seoTitle: string; // Omit " | X-Axis Overseas" (layout.tsx appends it)
   description: string;
-  category: 'Intakes' | 'MOI & Eligibility' | 'Visa & Funds' | 'Hyderabad Local';
+  category: 'Intakes' | 'MOI & Eligibility' | 'Visa & Funds' | 'Hyderabad Local' | 'Scholarships & Cost';
   intakeTag: string;
   publishedAt: string; // ISO YYYY-MM-DD
   updatedAt: string;
@@ -370,7 +370,368 @@ export const blogPosts: BlogPost[] = [
         a: 'You can apply up to 6 months before your course start date once your CAS is issued and your 28-day funds (or education loan letter) and TB test certificate are ready.',
       },
     ],
-    relatedSlugs: ['uk-student-visa-28-day-funds-rule-inr', 'study-in-uk-without-ielts-jntuh-ou-moi'],
+    relatedSlugs: ['uk-student-visa-28-day-funds-rule-inr', 'uk-pre-cas-credibility-interview-questions'],
+  },
+  {
+    slug: 'uk-universities-accepting-backlogs-study-gap',
+    title: 'Study in UK with Backlogs or Study Gap (2–5 Years): Accepted Universities & Rules',
+    seoTitle: 'UK Universities for Backlogs & Study Gaps',
+    description:
+      'Have backlogs or a 2–5 year study gap? Learn how UK universities evaluate gaps & cleared/active backlogs, plus documents needed for CAS approval.',
+    category: 'MOI & Eligibility',
+    intakeTag: 'Backlogs & Gap Guide',
+    publishedAt: '2026-11-28',
+    updatedAt: '2026-11-28',
+    readTime: '6 min read',
+    quickFacts: [
+      { label: 'Cleared Backlogs', value: 'Many modern UK unis accept 5–15+' },
+      { label: 'Active Backlogs', value: 'Must be cleared before CAS' },
+      { label: 'Acceptable Study Gap', value: '1–5+ years with valid proof' },
+      { label: 'Key Requirement', value: 'Honest SOP + work/activity proof' },
+    ],
+    sections: [
+      {
+        heading: 'Cleared vs Active Backlogs: How UK Admissions Teams Evaluate Profiles',
+        paragraphs: [
+          'Having backlogs during B.Tech or degree studies does not automatically block you from studying in the UK. Unlike some countries with rigid cutoffs, UK universities assess your overall final percentage, subject relevance, and upward academic trend.',
+          'You can often receive a conditional offer while clearing 1–2 final-semester backlogs, provided you submit your cleared marksheet and provisional degree certificate before the university issues your CAS letter.',
+        ],
+        table: {
+          caption: 'Indicative UK University Backlog & Gap Acceptance by Tier',
+          headers: ['University Tier', 'Typical Cleared Backlogs', 'Typical Study Gap', 'Key Conditions'],
+          rows: [
+            ['Russell Group Universities', '0 – 4 backlogs', 'Up to 2 – 3 years', 'Strong final % (65%–70%+) & relevant work'],
+            ['London Modern Universities', 'Up to 8 – 12 backlogs', 'Up to 3 – 5 years', 'Valid employment / business proof + interview'],
+            ['Regional Career-Focused UK Unis', 'Up to 10 – 15+ backlogs', 'Up to 5+ years', 'Consistent gap timeline & genuine career goal'],
+          ],
+        },
+      },
+      {
+        heading: 'How Many Years of Study Gap Are Acceptable in the UK?',
+        paragraphs: [
+          'For undergraduate courses, UK universities generally prefer gaps of up to 2 years after 12th grade. For Master’s (postgraduate) degrees, gaps of 2 to 5+ years are very common and widely accepted—especially if you were working in IT, business, healthcare, or a family enterprise.',
+          'The critical rule is zero unexplained timeline holes: every period longer than 6 months after graduation should be clearly accounted for in your CV and Statement of Purpose (SOP).',
+        ],
+      },
+      {
+        heading: 'Documents That Properly Justify a Study Gap',
+        paragraphs: [
+          'Admissions teams and Pre-CAS interviewers verify gap claims carefully. Keep genuine, verifiable records ready:',
+        ],
+        bullets: [
+          'Full-time employment: Offer letter, experience/relieving letter on company letterhead, last 3–6 months payslips, and bank salary credits or Form 16.',
+          'Family business or self-employment: GST/Udyam registration, business bank statements, ITR filings, and client invoices.',
+          'Competitive exam preparation (GATE, UPSC, bank exams) or medical/family reasons: Admit cards, coaching receipts, or genuine medical documentation explained briefly and honestly in your SOP.',
+          'Upskilling / internships: Verified internship certificates, GitHub/portfolio projects, or recognised cloud/data certifications (AWS, Azure, Google, Microsoft).',
+        ],
+      },
+      {
+        heading: 'Writing an Honest SOP That Passes Pre-CAS Scrutiny',
+        paragraphs: [
+          'Never invent fake experience letters—UK universities run verification checks and fake documents can trigger a 10-year UKVI deception ban. Instead, connect what you learned during your gap directly to the specific UK Master’s modules you plan to study and the career role you want afterward.',
+          'Not sure which universities match your exact backlog count or gap years? Use our 60-second eligibility checker or walk in to our Ameerpet office for a free profile review.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'How many backlogs are accepted by UK universities for a Master’s degree?',
+        a: 'Many career-focused UK universities accept 8 to 15 cleared backlogs if your final aggregate is 55%–60%+. Russell Group universities are stricter and typically look for 0–4 backlogs alongside a 65%–70%+ score.',
+      },
+      {
+        q: 'Can I get a UK student visa with a 5-year study gap after B.Tech?',
+        a: 'Yes, a 5-year gap after graduation is routinely approved when backed by genuine work experience, business documentation, or clearly explained upskilling that connects logically to your chosen UK course.',
+      },
+      {
+        q: 'Can I apply to UK universities with active backlogs?',
+        a: 'Some universities issue a conditional offer while you finish 1–2 remaining exams, but you must clear all active backlogs and submit final pass transcripts before receiving your CAS letter and applying for the visa.',
+      },
+      {
+        q: 'Does a study gap require IELTS instead of MOI?',
+        a: 'Often yes—if your degree was completed more than 3–5 years ago, many universities will ask for IELTS Academic, PTE Academic, or their internal online English test even if your Indian college was English-medium.',
+      },
+    ],
+    relatedSlugs: ['uk-pre-cas-credibility-interview-questions', 'study-in-uk-without-ielts-jntuh-ou-moi'],
+  },
+  {
+    slug: 'uk-pre-cas-credibility-interview-questions',
+    title: 'Top 25 UK Pre-CAS Credibility Interview Questions & Winning Answer Guide (2027)',
+    seoTitle: '25 UK Pre-CAS Credibility Interview Q&As',
+    description:
+      'Prepare for your UK university Pre-CAS credibility interview with the top 25 questions, winning answer frameworks, red flags to avoid & free mock prep.',
+    category: 'Visa & Funds',
+    intakeTag: 'Interview Prep 2027',
+    publishedAt: '2026-11-28',
+    updatedAt: '2026-11-28',
+    readTime: '8 min read',
+    quickFacts: [
+      { label: 'Interview Length', value: 'Usually 10 – 20 minutes (Video / AI)' },
+      { label: 'Core Focus', value: 'Genuine student intent & finances' },
+      { label: 'New 2026/27 Living Figure', value: '£1,570/mo London • £1,203/mo Outside' },
+      { label: 'Free Practice', value: '1-on-1 Mock Prep at X-Axis Ameerpet' },
+    ],
+    sections: [
+      {
+        heading: 'Why UK Universities Conduct Pre-CAS Credibility Interviews',
+        paragraphs: [
+          'Before issuing your Confirmation of Acceptance for Studies (CAS), most UK universities run a live video or recorded credibility interview. Because UKVI holds universities accountable for visa refusal rates, interviewers want to confirm you genuinely researched your course, understand your living costs, and have realistic career goals.',
+          'The secret is not memorising robotic scripts—interviewers spot rehearsed answers immediately. Know your own course modules, exact campus city, sponsor income, and post-study goals naturally.',
+        ],
+      },
+      {
+        heading: 'Category 1: Why the UK & Why This University? (Questions 1–7)',
+        paragraphs: [
+          'Expect follow-up questions comparing the UK against India, the USA, Canada, or Australia—give concrete academic and ROI reasons rather than generic praise:',
+        ],
+        bullets: [
+          '1. Why did you choose to study in the UK instead of India or another country?',
+          '2. Which other UK universities did you shortlist, and why did you pick this one?',
+          '3. Where is the university campus located, and what do you know about the city?',
+          '4. How did you research this university (rankings, TEF rating, lab facilities, accreditation)?',
+          '5. Have you travelled abroad before, or have you ever had a visa refusal for any country?',
+          '6. Why are you applying for this specific intake (March/May vs September)?',
+          '7. What are your backup plans if you do not get a visa for this intake?',
+        ],
+      },
+      {
+        heading: 'Category 2: Course Modules & Academic Background (Questions 8–14)',
+        paragraphs: [
+          'Always read the exact module list on your university’s official course webpage before the call:',
+        ],
+        bullets: [
+          '8. Tell me about your previous degree, projects, and academic scores.',
+          '9. Why did you choose this specific Master’s/Bachelor’s programme?',
+          '10. Name 3–4 core modules in your course and explain which one excites you most.',
+          '11. How is the course assessed (exams, coursework, group labs, dissertation)?',
+          '12. How does this degree bridge the gap between your past background and future role?',
+          '13. Explain any study gap or backlogs shown on your academic transcripts.',
+          '14. If your course includes a placement year, how do you plan to secure one?',
+        ],
+      },
+      {
+        heading: 'Category 3: Finances, Sponsors & New UKVI Living Costs (Questions 15–20)',
+        paragraphs: [
+          'Quote the updated 30 November 2026 GOV.UK maintenance amounts accurately (£1,570/month = £14,130 in London; £1,203/month = £10,827 outside London) and know your exact sponsor details:',
+        ],
+        bullets: [
+          '15. What is your total first-year tuition fee, scholarship amount, and deposit paid?',
+          '16. How much will your accommodation and monthly living costs be in your UK city?',
+          '17. Who is sponsoring your education, what is their occupation, and what is their annual income?',
+          '18. Have you taken an education loan? If yes, from which bank, for what amount, and how will you repay it?',
+          '19. How much money is currently in your sponsor’s bank account, and what is the source of those savings?',
+          '20. Do you plan to work part-time in the UK? (Correct answer: My primary focus is studying; my sponsor/loan covers all costs, and any part-time work will strictly follow the 20 hrs/week term-time limit.)',
+        ],
+      },
+      {
+        heading: 'Category 4: Post-Study Career & Return Plans (Questions 21–25)',
+        paragraphs: [
+          'Be clear about job roles, target companies, realistic Indian/UK salaries, and the updated 18-month Graduate Route (for Bachelor’s/Master’s applying from Jan 2027):',
+        ],
+        bullets: [
+          '21. What specific job titles will you target right after graduation?',
+          '22. Name 3–4 companies in India or globally that hire graduates from this field.',
+          '23. What realistic starting salary do you expect after returning to India with a UK degree?',
+          '24. Do you plan to use the Graduate Route visa, and what are your long-term plans after that?',
+          '25. How will you recover the investment you and your family are making in this degree?',
+        ],
+      },
+      {
+        heading: 'Top 5 Red Flags That Cause Pre-CAS Rejections',
+        paragraphs: [
+          'Avoid these five common mistakes during your interview:',
+        ],
+        bullets: [
+          'Reading from notes off-screen or looking sideways continuously (triggers instant credibility flags).',
+          'Saying you will fund your tuition or rent through part-time work in the UK.',
+          'Not knowing at least 3 actual module names or the exact campus location.',
+          'Quoting outdated living-cost figures or not knowing your sponsor’s annual income/loan bank.',
+          'Giving vague answers like "UK has good education and good scope" without specifics.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'How many attempts do I get for a UK university Pre-CAS interview?',
+        a: 'Many universities allow only 1 or 2 attempts per intake. Failing a credibility interview can result in offer withdrawal for that intake, which is why practicing with a mock interview beforehand is essential.',
+      },
+      {
+        q: 'What should I say if asked about part-time jobs during the credibility interview?',
+        a: 'State clearly that your tuition and living costs are fully covered by your savings/sponsor/education loan. You may mention that if you take a part-time role for UK workplace exposure, it will stay strictly within the 20 hours/week term-time rule.',
+      },
+      {
+        q: 'Does every UK student get a UKVI embassy credibility interview too?',
+        a: 'No—most Indian students only complete the university’s Pre-CAS interview. However, UKVI conducts random or risk-based credibility interviews after biometrics, covering the exact same topics.',
+      },
+      {
+        q: 'Does X-Axis offer free Pre-CAS mock interviews in Hyderabad?',
+        a: 'Yes. Every student applying through X-Axis receives dedicated 1-on-1 mock Pre-CAS interviews (in-person at our KVR Enclave, Ameerpet office or on video call) tailored to their exact university and course.',
+      },
+    ],
+    relatedSlugs: ['uk-student-visa-28-day-funds-rule-inr', 'uk-universities-accepting-backlogs-study-gap'],
+  },
+  {
+    slug: 'affordable-uk-universities-scholarships-2027',
+    title: 'Most Affordable UK Universities & Scholarships for Indian Students (2027)',
+    seoTitle: 'Affordable UK Universities & Scholarships',
+    description:
+      'Explore high-ROI, affordable UK universities for Indian students with £3,000–£5,000 scholarships, lower outside-London living costs & loan options.',
+    category: 'Scholarships & Cost',
+    intakeTag: '2027 Budget Guide',
+    publishedAt: '2026-11-28',
+    updatedAt: '2026-11-28',
+    readTime: '6 min read',
+    quickFacts: [
+      { label: 'Affordable Tuition Band', value: '£14,000 – £18,000 / year' },
+      { label: 'Common Scholarships', value: '£2,000 – £5,000 automatic/merit' },
+      { label: 'Outside-London Savings', value: 'Save £3,303 vs London UKVI funds' },
+      { label: '1-Year Master’s Advantage', value: '1 year fees instead of 2 years' },
+    ],
+    sections: [
+      {
+        heading: 'How to Keep Your Total 1-Year UK Master’s Cost Under Control',
+        paragraphs: [
+          'Because most UK Master’s degrees last just 12 months (compared to 2 years in the USA, Canada, or Australia), the UK remains one of the highest-ROI study destinations for Indian families—even after the 30 November 2026 UKVI maintenance update.',
+          'Choosing a respected outside-London university immediately lowers your required UKVI 9-month living funds from £14,130 (London) to £10,827—a £3,303 (~₹3.6 Lakhs) reduction right off the top, alongside lower student rent and groceries.',
+        ],
+      },
+      {
+        heading: 'Indicative Affordable UK Universities & Scholarships (2027)',
+        paragraphs: [
+          'Compare indicative postgraduate tuition bands and common international bursaries across high-ROI UK campuses (always confirm current intake fee schedules before applying):',
+        ],
+        table: {
+          caption: 'Indicative Affordable UK Universities for Indian Students (2027)',
+          headers: ['University', 'City', 'Indicative Tuition', 'Typical Scholarship', 'MOI Option'],
+          rows: [
+            ['Teesside University', 'Middlesbrough', '£14,000 – £16,500', 'Up to £3,000', 'Yes'],
+            ['De Montfort University (DMU)', 'Leicester', '£15,000 – £17,000', 'Up to £4,000', 'Yes'],
+            ['Anglia Ruskin University', 'Cambridge / Chelmsford', '£15,000 – £17,000', 'Up to £3,500', 'Yes'],
+            ['University of Hertfordshire', 'Hatfield', '£15,000 – £17,500', 'Up to £3,000 – £5,000', 'Yes'],
+            ['Ulster University', 'Belfast', '£15,000 – £17,500', 'Up to £3,000', 'Yes'],
+            ['Coventry University', 'Coventry', '£15,000 – £18,000', 'Up to £3,000 – £5,000', 'Yes'],
+            ['University of Greenwich', 'London', '£15,000 – £18,000', 'Up to £4,000', 'Yes'],
+          ],
+        },
+      },
+      {
+        heading: '3 Ways Indian Students Reduce Net UK Fees Even Further',
+        paragraphs: [
+          'Combining smart university selection with early applications can trim ₹3–₹6 Lakhs off your first-year outlay:',
+        ],
+        bullets: [
+          'Automatic Regional & Merit Bursaries: Many UK universities deduct £2,000–£5,000 automatically from tuition based on your B.Tech/Degree percentage (60%+ or 70%+).',
+          'Early-Bird Tuition Deposit Discounts: Paying your CAS deposit before the early-acceptance deadline often unlocks an additional £500–£2,000 fee reduction.',
+          'Outside-London Student Cities: Cities like Coventry, Leicester, Middlesbrough, Newcastle, Belfast, and Swansea offer shared student housing at roughly half of central London rents.',
+        ],
+      },
+      {
+        heading: 'Plan Your Exact GBP & INR Budget With Our Calculator',
+        paragraphs: [
+          'Use our interactive UK Study Cost Estimator on the homepage to compare London vs outside-London living costs (£14,130 vs £10,827), tuition tiers, and potential scholarship waivers in Indian Rupees—or visit X-Axis in Ameerpet for an education loan comparison across SBI, HDFC Credila, Avanse, and Auxilo.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'What is the realistic total cost for an affordable 1-year UK Master’s in INR?',
+        a: 'At an outside-London university with £15,000–£17,000 tuition, a £2,000–£3,000 scholarship, and £10,827 UKVI living funds, the net first-year budget typically lands around £23,000–£26,000 (roughly ₹25–₹29 Lakhs at ₹110/£).',
+      },
+      {
+        q: 'Are UK scholarships deducted directly from tuition fees?',
+        a: 'Yes, most university merit and early-bird scholarships are applied directly as a tuition fee reduction on your CAS letter, which also lowers the remaining tuition balance you need to show for your UK Student Visa.',
+      },
+      {
+        q: 'Which UK cities have the lowest living costs for Indian students?',
+        a: 'Middlesbrough, Belfast, Leicester, Coventry, Cardiff, Swansea, and Newcastle consistently offer lower rent and transport costs while keeping strong rail links to major UK job hubs.',
+      },
+      {
+        q: 'Can I cover 100% of tuition and living costs with an Indian education loan?',
+        a: 'Yes. Public-sector banks (secured loans) and leading NBFCs (secured and unsecured loans based on co-applicant profile and university tier) offer education loans covering tuition, living expenses, IHS, and travel.',
+      },
+    ],
+    relatedSlugs: ['uk-student-visa-28-day-funds-rule-inr', 'uk-1-year-masters-vs-placement-year-psw'],
+  },
+  {
+    slug: 'uk-1-year-masters-vs-placement-year-psw',
+    title: '1-Year UK Master’s vs 2-Year Placement Year + 2027 Graduate Visa (PSW) Guide',
+    seoTitle: "UK 1-Year Master's vs Placement Year & PSW",
+    description:
+      'Compare 1-year UK master’s vs 2-year placement courses under the new 1 Jan 2027 Graduate Visa rule (18 months PSW, 3 years PhD): costs, work & ROI.',
+    category: 'Intakes',
+    intakeTag: '2027 PSW Update',
+    publishedAt: '2026-11-28',
+    updatedAt: '2026-11-28',
+    readTime: '6 min read',
+    quickFacts: [
+      { label: 'Graduate Visa (from 1 Jan 2027)', value: '18 months (Bachelor’s & Master’s)' },
+      { label: 'PhD Graduate Visa', value: '3 years (unchanged)' },
+      { label: '1-Year Master’s', value: 'Lower cost, faster entry to work' },
+      { label: '2-Year Placement Course', value: 'Adds up to 12 mo UK work placement' },
+    ],
+    sections: [
+      {
+        heading: 'What Changed for the UK Graduate Route Visa on 1 January 2027?',
+        paragraphs: [
+          'Under official GOV.UK rules, the duration of the UK Graduate Route (post-study work) visa depends on the date you submit your Graduate visa application after completing your degree:',
+          'Bachelor’s and Master’s graduates applying on or after 1 January 2027 receive 18 months to live and work in the UK without employer sponsorship (2 years applies only to applications submitted on or before 31 December 2026). PhD and doctoral graduates continue to receive 3 years.',
+        ],
+      },
+      {
+        heading: 'Side-by-Side Comparison: 1-Year Master’s vs 2-Year Placement Year',
+        paragraphs: [
+          'With an 18-month Graduate Route window for 2027+ entrants, many Indian students ask whether choosing a 2-year Master’s with an industry placement year ("sandwich course") gives a stronger UK career runway:',
+        ],
+        table: {
+          caption: '1-Year UK Master’s vs 2-Year Placement-Year Master’s',
+          headers: ['Factor', '1-Year Master’s', '2-Year Placement-Year Master’s'],
+          rows: [
+            ['Course Duration', '12 months', '21 – 24 months (1 yr study + up to 1 yr placement)'],
+            ['Tuition Cost', '1 year full tuition', 'Year 1 tuition + smaller Year 2 placement fee (£1,500–£4,500)'],
+            ['Initial Visa IHS Fee', 'Lower (covers ~16 months)', 'Higher upfront (covers ~28 months)'],
+            ['UK Work Experience', 'Part-time during study + 18 mo PSW', 'Up to 12 mo full-time placement + 18 mo PSW'],
+            ['Best For', 'Experienced professionals & tight budgets', 'Freshers seeking UK CV experience before PSW'],
+          ],
+        },
+      },
+      {
+        heading: 'Important Reality Check: How Placement Years Actually Work',
+        paragraphs: [
+          'A placement-year course is NOT a guaranteed job handed out by the university. Students must actively apply, attend university career fairs, pass employer interviews, and secure a placement—though universities provide CV workshops, career portals, and employer introductions.',
+          'If a student does not secure an external placement before the university’s cut-off date, most universities automatically transfer them back to the standard 1-year Master’s route (and notify UKVI of the shorter completion date). Knowing this upfront prevents surprises.',
+        ],
+      },
+      {
+        heading: 'How to Maximise Your 18-Month Graduate Route & Skilled Worker Path',
+        paragraphs: [
+          'Whether you pick a 1-year degree or a placement-year course, landing a sponsored UK Skilled Worker role comes down to starting early—not waiting until graduation:',
+        ],
+        bullets: [
+          'Start networking and attending campus employer fairs in Term 1 (first 90 days in the UK).',
+          'Target high-demand UK skill areas such as Data Engineering, Cyber Security, Cloud/DevOps, Civil/Structural Engineering, Healthcare, and Construction Project Management.',
+          'Use your university careers team to tailor a crisp UK-format CV and LinkedIn profile before your dissertation finishes.',
+          'Combine relevant Indian work experience or projects with UK part-time/placement experience to stand out for Skilled Worker sponsorship.',
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: 'How long is the UK Graduate Route (PSW) visa for 2027 intake students?',
+        a: 'Under official GOV.UK rules, Bachelor’s and Master’s graduates who apply for the Graduate visa on or after 1 January 2027 receive 18 months. PhD graduates continue to receive 3 years.',
+      },
+      {
+        q: 'Are UK Master’s placement years paid?',
+        a: 'Many industry placements in IT, engineering, finance, and business are paid (often helping offset Year 2 living costs), though availability and pay vary by sector and employer competition.',
+      },
+      {
+        q: 'Do I have to show 2 years of living funds for a 2-year placement Master’s?',
+        a: 'No. UKVI Student Visa maintenance funds are capped at 9 months of living costs (£14,130 London / £10,827 outside London from 30 Nov 2026) plus your Year 1 remaining tuition balance—even for 2-year or 3-year courses. You do pay IHS for the full visa length upfront.',
+      },
+      {
+        q: 'Which universities offer 2-year Master’s with placement year?',
+        a: 'Popular options include Coventry University, University of Hertfordshire, Northumbria University, University of Greenwich, De Montfort University, Ulster University, and Kingston University (subject to specific course availability).',
+      },
+    ],
+    relatedSlugs: ['affordable-uk-universities-scholarships-2027', 'uk-march-may-2027-intake-universities'],
   },
 ];
 
