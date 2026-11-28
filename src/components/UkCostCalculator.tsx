@@ -127,7 +127,7 @@ export default function UkCostCalculator() {
 
         <div className="mt-6">
           <p className="text-xs leading-relaxed text-white/60">
-            Indicative only (£1 ≈ ₹{GBP_INR}). Actual fees, scholarships and UKVI living-cost rules vary by university and year.
+            Indicative only (£1 ≈ ₹{GBP_INR}). Separate GOV.UK fees apply at visa filing (£558 Student Visa + £776/yr IHS). Actual tuition, scholarships and UKVI rules vary by university and intake.
           </p>
           <button
             type="button"

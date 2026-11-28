@@ -35,6 +35,7 @@ export default function LeadCaptureForm({
   const phoneRef = useRef<HTMLInputElement>(null);
   const uid = useId();
   const full = variant === 'full';
+  const defaultTarget = prefill?.target || [prefill?.university, prefill?.course].filter(Boolean).join(' - ');
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -50,11 +51,7 @@ export default function LeadCaptureForm({
     setError('');
     setDeliveryFallback(false);
     data.source = prefill?.source || 'website';
-    trackEvent('generate_lead', {
-      form_source: data.source,
-      intake: data.intake || 'unspecified',
-      page_path: window.location.pathname,
-    });
+    const pagePath = window.location.pathname;
     fetch('/api/lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -66,6 +63,11 @@ export default function LeadCaptureForm({
           setDeliveryFallback(true);
           return;
         }
+        trackEvent('generate_lead', {
+          form_source: data.source,
+          intake: data.intake || 'unspecified',
+          page_path: pagePath,
+        });
         const body = (await res.json().catch(() => null)) as { emailSent?: boolean } | null;
         if (body && body.emailSent === false) setDeliveryFallback(true);
       })
@@ -121,7 +123,7 @@ export default function LeadCaptureForm({
       {prefill?.notes && <input type="hidden" name="notes" value={prefill.notes} />}
       {!full && prefill?.qualification && <input type="hidden" name="qualification" value={prefill.qualification} />}
       {!full && prefill?.english && <input type="hidden" name="english" value={prefill.english} />}
-      {!full && prefill?.target && <input type="hidden" name="target" value={prefill.target} />}
+      {!full && defaultTarget && <input type="hidden" name="target" value={defaultTarget} />}
 
       <div className={full ? 'grid gap-3 sm:grid-cols-2' : 'space-y-3'}>
         <input
@@ -215,7 +217,7 @@ export default function LeadCaptureForm({
           <input
             id={`${uid}-target`}
             name="target"
-            defaultValue={prefill?.target || [prefill?.university, prefill?.course].filter(Boolean).join(' - ')}
+            defaultValue={defaultTarget}
             enterKeyHint="done"
             placeholder="Target university / course"
             className={field}

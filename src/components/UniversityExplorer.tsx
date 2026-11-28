@@ -74,7 +74,7 @@ export default function UniversityExplorer() {
         </div>
       </search>
       <div className="mt-4 flex flex-wrap items-center justify-between gap-2 text-sm text-slate-500">
-        <p>{list.length} universities shown</p>
+        <p aria-live="polite">{list.length} universities shown</p>
         {(q || f !== 'All') && (
           <button
             type="button"
@@ -121,7 +121,7 @@ export default function UniversityExplorer() {
                 onClick={() => openModal({ university: u.name, source: 'university-card' })}
                 className="min-h-[44px] w-full rounded-xl border border-crimson bg-white px-4 py-2.5 text-sm font-semibold text-crimson transition hover:bg-crimson hover:text-white"
               >
-                Check My Eligibility
+                Check My Eligibility<span className="sr-only"> for {u.name}</span>
               </button>
             </div>
           </article>

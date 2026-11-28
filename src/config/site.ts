@@ -1,6 +1,5 @@
 /**
- * SINGLE SOURCE OF TRUTH for contact details.
- * >>> Replace the phone / WhatsApp placeholders below with the real numbers. <<<
+ * SINGLE SOURCE OF TRUTH for X-Axis Overseas brand, domain, analytics & contact details.
  */
 export const siteConfig = {
   brandName: 'X-Axis',

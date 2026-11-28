@@ -219,7 +219,7 @@ export default function Home() {
                   prefill={{ university: u.name }}
                   className="inline-flex items-center gap-1 text-sm font-semibold text-crimson hover:underline"
                 >
-                  Check Eligibility <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
+                  Check Eligibility<span className="sr-only"> for {u.name}</span> <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
                 </CtaButton>
               </div>
             </article>

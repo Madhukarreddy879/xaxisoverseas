@@ -1,4 +1,4 @@
-// Cloudflare Pages Function -> mounted at POST /api/lead
+// Cloudflare Worker lead handler -> mounted at POST /api/lead via worker.js
 // Optional env var: LEAD_WEBHOOK_URL (Google Apps Script / Make / Zapier / Slack / CRM)
 
 const ALLOWED_ORIGINS = ['https://xaxisoverseas.com', 'https://www.xaxisoverseas.com'];
@@ -20,7 +20,7 @@ export function corsFor(request) {
 const json = (request, body, status = 200) =>
   new Response(JSON.stringify(body), {
     status,
-    headers: { 'Content-Type': 'application/json', ...corsFor(request) },
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ...corsFor(request) },
   });
 
 // Trim, cap length, strip leading spreadsheet-formula characters.
@@ -168,7 +168,12 @@ export async function onRequestPost(context) {
   if (!data || typeof data !== 'object') return json(request, { ok: false, error: 'Invalid request body' }, 400);
 
   // Honeypot: bots fill this hidden field. Pretend success, do nothing.
-  if (String(data.website || '').trim()) return json(request, { ok: true });
+  if (String(data.website || '').trim()) {
+    if (isFormPost) {
+      return Response.redirect(new URL('/contact/?submitted=1', request.url).toString(), 303);
+    }
+    return json(request, { ok: true });
+  }
 
   const lead = {};
   for (const f of FIELDS) lead[f] = clean(data[f], f === 'notes' ? 500 : 200, f === 'notes');

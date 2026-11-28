@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { CheckCircle2, Clock, Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
 import LeadCaptureForm from '@/components/LeadCaptureForm';
 import MapEmbed from '@/components/MapEmbed';
+import SubmittedBanner from '@/components/SubmittedBanner';
 import { buildWhatsAppUrl, siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
@@ -42,6 +43,7 @@ export default function Page() {
 
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 sm:py-14 lg:grid-cols-2 lg:gap-10 lg:px-8">
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <SubmittedBanner />
           <h2 className="mb-4 text-xl font-bold text-navy">Book Free UK Counselling</h2>
           <LeadCaptureForm variant="full" prefill={{ source: 'contact-page' }} />
         </div>

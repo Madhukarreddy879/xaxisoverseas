@@ -5,7 +5,7 @@ import { corsFor, onRequestOptions, onRequestPost } from './functions/api/lead.j
 const jsonResponse = (request, body, status) =>
   new Response(JSON.stringify(body), {
     status,
-    headers: { 'Content-Type': 'application/json', ...corsFor(request) },
+    headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store', ...corsFor(request) },
   });
 
 export default {

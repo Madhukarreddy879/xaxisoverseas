@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Mail, MapPin, Menu, Phone, X } from 'lucide-react';
 import BrandLogo from './BrandLogo';
 import { useCounselling } from './CounsellingContext';
@@ -26,11 +26,20 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const { openModal } = useCounselling();
 
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open]);
+
   return (
     <>
       <div className="bg-navy text-[11px] text-white/90 sm:text-xs">
         <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-6 gap-y-1 px-4 py-1.5 sm:px-6 md:justify-between md:py-2 lg:px-8">
-          <span className="font-semibold text-gold">Sept &amp; Jan UK Intakes Open — Free Profile Check</span>
+          <span className="font-semibold text-gold">March/May &amp; Sept 2027 UK Intakes Open — Free Profile Check</span>
           <span className="hidden items-center gap-4 md:flex">
             <span className="inline-flex items-center gap-1">
               <MapPin aria-hidden="true" className="h-3.5 w-3.5" /> KVR Enclave, beside AAA Theatre, Ameerpet
@@ -82,6 +91,7 @@ export default function Header() {
               onClick={() => setOpen((o) => !o)}
               aria-label="Toggle menu"
               aria-expanded={open}
+              aria-controls="mobile-nav"
             >
               {open ? <X aria-hidden="true" className="h-6 w-6" /> : <Menu aria-hidden="true" className="h-6 w-6" />}
             </button>
@@ -89,7 +99,7 @@ export default function Header() {
         </nav>
 
         {open && (
-          <div className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain border-t bg-white lg:hidden">
+          <div id="mobile-nav" className="max-h-[calc(100dvh-4.5rem)] overflow-y-auto overscroll-contain border-t bg-white lg:hidden">
             <ul className="mx-auto max-w-7xl px-4 py-2 sm:px-6">
               {links.map((l) => {
                 const active = l.href === '/' ? norm(pathname) === '/' : norm(pathname).startsWith(norm(l.href));
