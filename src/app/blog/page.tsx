@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, Calendar, Clock } from 'lucide-react';
 import { blogPosts } from '@/data/blogPosts';
 import { siteConfig } from '@/config/site';
+import BlogExplorer, { type BlogCardItem } from '@/components/BlogExplorer';
 import CtaButton from '@/components/CtaButton';
 
 export const metadata: Metadata = {
@@ -22,6 +22,18 @@ export const metadata: Metadata = {
 };
 
 export default function BlogIndexPage() {
+  const summaries: BlogCardItem[] = blogPosts.map(
+    ({ slug, title, description, category, intakeTag, updatedAt, readTime }) => ({
+      slug,
+      title,
+      description,
+      category,
+      intakeTag,
+      updatedAt,
+      readTime,
+    })
+  );
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -68,40 +80,7 @@ export default function BlogIndexPage() {
       </section>
 
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 sm:py-14 lg:px-8">
-        <div className="grid gap-6 md:grid-cols-2">
-          {blogPosts.map((post) => (
-            <article
-              key={post.slug}
-              className="flex flex-col rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-slate-300 hover:shadow-md"
-            >
-              <div className="flex flex-wrap items-center gap-2 text-xs">
-                <span className="rounded-full bg-crimson-light px-2.5 py-0.5 font-bold text-crimson">{post.category}</span>
-                <span className="rounded-full bg-gold-light px-2.5 py-0.5 font-semibold text-amber-800">{post.intakeTag}</span>
-                <span className="ml-auto inline-flex items-center gap-1 text-slate-500">
-                  <Clock aria-hidden="true" className="h-3.5 w-3.5" /> {post.readTime}
-                </span>
-              </div>
-              <h2 className="mt-3 font-serif text-xl font-bold leading-snug text-navy">
-                <Link href={`/blog/${post.slug}/`} className="hover:text-crimson">
-                  {post.title}
-                </Link>
-              </h2>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">{post.description}</p>
-              <div className="mt-auto flex items-center justify-between pt-5 text-sm">
-                <span className="inline-flex items-center gap-1.5 text-xs text-slate-500">
-                  <Calendar aria-hidden="true" className="h-3.5 w-3.5" />
-                  <time dateTime={post.updatedAt}>Updated {post.updatedAt}</time>
-                </span>
-                <Link
-                  href={`/blog/${post.slug}/`}
-                  className="inline-flex items-center gap-1 font-semibold text-crimson hover:underline"
-                >
-                  Read guide<span className="sr-only">: {post.title}</span> <ArrowRight aria-hidden="true" className="h-4 w-4" />
-                </Link>
-              </div>
-            </article>
-          ))}
-        </div>
+        <BlogExplorer posts={summaries} />
 
         <div className="mt-12 rounded-2xl bg-navy p-6 text-center text-white sm:p-10">
           <h2 className="font-serif text-2xl font-bold sm:text-3xl">Want a Personalised UK University Shortlist?</h2>

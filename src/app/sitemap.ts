@@ -5,7 +5,7 @@ export const dynamic = 'force-static';
 
 // Explicit content-modified dates so Google trusts sitemap lastmod (never bump unchanged routes).
 const staticRoutes: { path: string; lastModified: string }[] = [
-  { path: '', lastModified: '2026-11-27' },
+  { path: '', lastModified: '2026-11-28' },
   { path: 'study-in-uk/', lastModified: '2026-11-28' },
   { path: 'universities/', lastModified: '2026-11-28' },
   { path: 'services/', lastModified: '2026-11-28' },

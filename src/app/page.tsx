@@ -22,6 +22,7 @@ import FaqAccordion from '@/components/FaqAccordion';
 import CtaButton from '@/components/CtaButton';
 import MapEmbed from '@/components/MapEmbed';
 import { courseStreams, faqs, intakes, processSteps, trustHighlights, universities } from '@/data/ukData';
+import { blogPosts } from '@/data/blogPosts';
 import { buildWhatsAppUrl, siteConfig } from '@/config/site';
 
 export const metadata: Metadata = {
@@ -63,6 +64,15 @@ const container = 'mx-auto max-w-7xl px-4 sm:px-6 lg:px-8';
 
 export default function Home() {
   const featured = universities.slice(0, 6);
+  const featuredGuideSlugs = [
+    'uk-march-may-2027-intake-universities',
+    'uk-student-visa-28-day-funds-rule-inr',
+    'uk-pre-cas-credibility-interview-questions',
+    'affordable-uk-universities-scholarships-2027',
+  ];
+  const featuredGuides = featuredGuideSlugs
+    .map((slug) => blogPosts.find((p) => p.slug === slug))
+    .filter((p): p is NonNullable<typeof p> => Boolean(p));
   return (
     <>
       <section className="grid-pattern bg-navy text-white">
@@ -311,6 +321,48 @@ export default function Home() {
               );
             })}
           </div>
+        </div>
+      </section>
+
+      <section className={`${container} py-10 md:py-16`}>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-widest text-crimson">Updated Nov 2026 • UK Guides</p>
+            <h2 className="mt-1 font-serif text-2xl font-bold text-navy sm:text-3xl">Latest UK Study &amp; Visa Guides</h2>
+            <p className="mt-1.5 text-sm text-slate-600">
+              In-depth breakdowns of 2027 UK intakes, updated UKVI bank funds, Pre-CAS Q&amp;As, MOI waivers, and scholarships.
+            </p>
+          </div>
+          <Link href="/blog/" className="inline-flex items-center gap-1 text-sm font-semibold text-crimson hover:underline">
+            Explore all {blogPosts.length} UK study guides <ArrowRight aria-hidden="true" className="h-4 w-4" />
+          </Link>
+        </div>
+        <div className="mt-7 grid gap-4 sm:mt-8 sm:grid-cols-2 sm:gap-5 lg:grid-cols-4">
+          {featuredGuides.map((guide) => (
+            <article
+              key={guide.slug}
+              className="flex flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-crimson/40 hover:shadow-md"
+            >
+              <div className="flex items-center justify-between gap-2 text-[11px]">
+                <span className="rounded-full bg-crimson-light px-2.5 py-0.5 font-bold text-crimson">{guide.category}</span>
+                <span className="text-slate-500">{guide.readTime}</span>
+              </div>
+              <h3 className="mt-3 font-serif text-base font-bold leading-snug text-navy">
+                <Link href={`/blog/${guide.slug}/`} className="hover:text-crimson">
+                  {guide.title}
+                </Link>
+              </h3>
+              <p className="mt-2 line-clamp-3 text-xs leading-relaxed text-slate-600 sm:text-sm">{guide.description}</p>
+              <div className="mt-auto pt-4">
+                <Link
+                  href={`/blog/${guide.slug}/`}
+                  className="inline-flex items-center gap-1 text-xs font-semibold text-crimson hover:underline sm:text-sm"
+                >
+                  Read guide<span className="sr-only">: {guide.title}</span> <ArrowRight aria-hidden="true" className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
